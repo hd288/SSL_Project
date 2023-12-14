@@ -22,7 +22,7 @@ export default function TestHeader() {
     <Navbar expand="sm" className="border-bottom bg-body-tertiary mx-3">
       <Container fluid className="d-flex justify-content-between ">
         <Navbar.Brand className="col-sm-3 d-flex flex-column justify-content-start align-items-center">
-          <Container className=" d-flex justify-content-start align-items-center gap-3">
+          <Container className=" d-flex justify-content-between align-items-center">
             <Image href="#" src={logo} className="w-25 rounded" />
             <h5 className="text-secondary fw-lighter">
               Inspire. Learn. Achieve.
