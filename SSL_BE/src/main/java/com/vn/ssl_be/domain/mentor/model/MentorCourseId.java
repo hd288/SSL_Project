@@ -10,5 +10,5 @@ public class MentorCourseId implements Serializable {
     @Column(name = "user_id")
     private UUID userId;
     @Column(name = "course_id")
-    private String courseId;
+    private Long courseId;
 }

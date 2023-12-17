@@ -26,8 +26,13 @@ public class Course {
     @Column(name = "duration", nullable = false)
     private int duration;
 
-    @Column(name = "is_actived", nullable = false)
-    private boolean idActived;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
+
+    @Column(name = "is_activated", nullable = false)
+    private boolean isActived;
+
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")

@@ -17,7 +17,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query(value = "SELECT new com.vn.ssl_be.domain.course.dto.CategoryDto(c.categoryId, c.categoryName, count (cr.category.categoryId), c.description)" +
             "from Category c left join Course cr on c.categoryId = cr.category.categoryId " +
-            "where cr.idActived=true " +
+            "where cr.isActived=true " +
             "group by c.categoryId")
     List<CategoryDto> getCategoriesAndSize();
 

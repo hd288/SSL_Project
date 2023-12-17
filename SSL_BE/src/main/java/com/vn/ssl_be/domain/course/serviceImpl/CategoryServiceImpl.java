@@ -49,7 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
             throw CourseException.duplicateName("Duplicated");
         }
     }
-
     @Override
     public List<CategoryDto> getCategoriesAndSize() {
         return categoryRepository.getCategoriesAndSize();
