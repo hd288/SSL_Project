@@ -11,15 +11,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseDto {
+public class CourseResponse {
     private String courseId;
     private String courseName;
     private String courseDesc;
     private int duration;
     private Category category;
     private List<Lesson> lessons;
-    private String image;
+    private String imageCourseUrl;
 
-    public CourseDto(String courseId, String courseName, String courseDesc, String image, Category category, int duration, List<Lesson> lessons) {
+    public CourseResponse(String courseId, String courseName, String courseDesc, String imageCourseUrl, Category category, int duration, List<Lesson> lessons) {
     }
 }

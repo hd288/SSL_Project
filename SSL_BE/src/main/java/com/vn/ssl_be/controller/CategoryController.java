@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/categories")
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -43,21 +43,16 @@ public class CategoryController {
         try {
             Category existingCategory = categoryService.findById(categoryId);
             category.setCategoryId(existingCategory.getCategoryId());
-            Category updatedCategory = categoryService.update(category);
+            Category updatedCategory = categoryService.save(category);
             return ResponseEntity.ok(updatedCategory);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
     }
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long categoryId) throws CourseException {
+    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) throws CourseException {
         Category category = categoryService.findById(categoryId);
-
-        if (category == null) {
-            throw new CourseException("Category not found with ID: " + categoryId);
-        }
-
         categoryService.deleteById(category.getCategoryId());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Deleta Successfully");
     }
 }

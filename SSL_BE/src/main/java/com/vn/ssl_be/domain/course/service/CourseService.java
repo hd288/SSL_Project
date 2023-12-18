@@ -1,30 +1,31 @@
 package com.vn.ssl_be.domain.course.service;
 
-import com.vn.ssl_be.domain.course.dto.CourseDto;
+import com.vn.ssl_be.domain.course.dto.CourseRequest;
+import com.vn.ssl_be.domain.course.dto.CourseResponse;
+import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Course;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface CourseService {
+    /* 4 Method Basic */
     List<Course> findAll();
 
-    List<CourseDto> allCourse();
+    Course findById(String id) throws CourseException;
 
-    Course save(MultipartFile imageCourse, CourseDto course);
-
-    Course update(MultipartFile imageCourse, CourseDto course);
+    Course save(CourseRequest courseRequest);
 
     void deletedById(String id);
 
-    CourseDto getById(String id);
+    /**************************/
+    /* Method Advance */
+    List<CourseResponse> findAllCourseForUser();
+    CourseResponse getById(String id);
+    List<CourseResponse> findAllCourseByNameOrDescription(String keyword);
+    List<CourseResponse> findAllCourseByCategoryId(Long categoryId);
 
-    Course findById(String id);
 
-    List<CourseDto> searchCourse(String keyword);
 
-    List<CourseDto> findAllByCategory(String category);
-
-    List<CourseDto> findByCategoryId(Long id);
 
 }
