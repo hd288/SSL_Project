@@ -12,13 +12,12 @@ import java.util.List;
 @Transactional
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    @Query("UPDATE Category c SET c.categoryName = :categoryName, c.description = :description WHERE c.categoryId = :categoryId")
-    void updateCategory(Long categoryId, String categoryName, String description);
+    List<Category> findAllByCategoryNameContainingOrDescriptionContaining(String categoryName, String description);
 
-    @Query(value = "SELECT new com.vn.ssl_be.domain.course.dto.CategoryDto(c.categoryId, c.categoryName, count (cr.category.categoryId), c.description)" +
+    @Query(value = "SELECT new com.vn.ssl_be.domain.course.dto.CategoryDto(c.categoryId, c.categoryName, count (cr.courseId), c.description)" +
             "from Category c left join Course cr on c.categoryId = cr.category.categoryId " +
             "where cr.isActived=true " +
             "group by c.categoryId")
-    List<CategoryDto> getCategoriesAndSize();
+    List<CategoryDto> getCategoriesAndQuantityCourses();
 
 }

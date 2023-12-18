@@ -28,7 +28,7 @@ public class Course {
 
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    private String image;
+    private String imageCourseUrl;
 
     @Column(name = "is_activated", nullable = false)
     private boolean isActived;

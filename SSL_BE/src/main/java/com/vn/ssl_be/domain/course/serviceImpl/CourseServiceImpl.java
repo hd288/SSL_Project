@@ -1,11 +1,16 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
-import com.vn.ssl_be.domain.course.dto.CourseDto;
+import com.vn.ssl_be.common.util.UploadService;
+import com.vn.ssl_be.domain.course.dto.CourseRequest;
+import com.vn.ssl_be.domain.course.dto.CourseResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
+import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.repository.CourseRepository;
+import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,15 +21,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
+    private final ModelMapper modelMapper;
+    private final UploadService uploadService;
+    private final CategoryService categoryService;
 
+    /* 4 Method Basic */
     @Override
     public List<Course> findAll() {
         return courseRepository.findAll();
-    }
-
-    @Override
-    public List<CourseDto> allCourse() {
-        return transferData(courseRepository.findAll());
     }
 
     @Override
@@ -34,24 +38,34 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course save(MultipartFile imageCourse, CourseDto course) {
-        return null;
+    public Course save(CourseRequest courseRequest) {
+        String imageCourseUrl = null;
+        if (!courseRequest.getFileImageCourse().isEmpty()) {
+            imageCourseUrl = (uploadService.uploadFileImage(courseRequest.getFileImageCourse()));
+        }
+        Course course = modelMapper.map(courseRequest, Course.class);
+        course.setImageCourseUrl(imageCourseUrl);
+        return courseRepository.save(course);
     }
 
-    @Override
-    public Course update(MultipartFile imageCourse, CourseDto course) {
-        return null;
-    }
 
     @Override
     public void deletedById(String id) {
-        Course course = courseRepository.getById(id);
-        course.setActived(false);
-        courseRepository.save(course);
+        courseRepository.deleteById(id);
+    }
+
+    /*************************************************************/
+    /* Method Advance */
+    @Override
+    public List<CourseResponse> findAllCourseForUser() {
+        // List<Course> courses = courseRepository.findAllByActivedIsTrue();
+        return findAll().stream()
+                .map(course -> modelMapper.map(course, CourseResponse.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public CourseDto getById(String id) throws CourseException {
+    public CourseResponse getById(String id) throws CourseException {
         Course course = courseRepository.getById(id);
         if (course == null) {
             throw CourseException.notFound("Course not found with id: " + id);
@@ -60,50 +74,44 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseDto> searchCourse(String keyword) throws CourseException {
-        List<Course> searchResults = courseRepository.searchCourse(keyword);
+    public List<CourseResponse> findAllCourseByNameOrDescription(String keyword) throws CourseException {
+        List<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
             throw CourseException.notFound("No courses found matching the search criteria.");
         }
         return searchResults.stream()
-                .map(this::convertToDto)
+                .map(course -> modelMapper.map(course, CourseResponse.class))
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public List<CourseDto> findAllByCategory(String category) throws CourseException {
+    public List<CourseResponse> findAllCourseByCategoryId(Long id) throws CourseException {
+        Category category = categoryService.findById(id);
         List<Course> courses = courseRepository.findAllByCategory(category);
-        if (courses.isEmpty()) {
-            throw CourseException.notFound("No courses found in the specified category.");
-        }
-        return courses.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CourseDto> findByCategoryId(Long id) throws CourseException {
-        List<Course> courses = courseRepository.getCourseByCategoryId(id);
         if (courses.isEmpty()) {
             throw CourseException.notFound("No courses found in the specified category ID.");
         }
         return courses.stream()
-                .map(this::convertToDto)
+                .map(course -> modelMapper.map(course, CourseResponse.class))
                 .collect(Collectors.toList());
     }
 
-    private List<CourseDto> transferData(List<Course> courses) {
+
+    /*************************************************************/
+    /* Create your own mapper method*/ /* But now we are supported by Modermapper*/
+    private List<CourseResponse> transferData(List<Course> courses) {
         return courses.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    private CourseDto convertToDto(Course course) {
-        return new CourseDto(
+    private CourseResponse convertToDto(Course course) {
+        return new CourseResponse(
                 course.getCourseId(),
                 course.getCourseName(),
                 course.getCourseDesc(),
-                course.getImage(),
+                course.getImageCourseUrl(),
                 course.getCategory(),
                 course.getDuration(),
                 course.getLessons()
