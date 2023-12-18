@@ -14,6 +14,6 @@ public interface CategoryService {
 
     /**************************/
     /* Method Advance */
-    List<CategoryDto> findAllCategoryByNameOrDescription(String keyword);
+    List<Category> findAllCategoryByNameOrDescription(String keyword);
     List<CategoryDto> getCategoriesAndQuantityCourses();
 }

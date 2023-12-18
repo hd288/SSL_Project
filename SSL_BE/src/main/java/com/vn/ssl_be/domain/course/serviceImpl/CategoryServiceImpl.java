@@ -11,7 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -49,14 +49,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     /*************************************************************/
     @Override
-    public List<CategoryDto> findAllCategoryByNameOrDescription(String keyword) throws CourseException {
+    public List<Category> findAllCategoryByNameOrDescription(String keyword) throws CourseException {
         List<Category> searchResults = categoryRepository.findAllByCategoryNameContainingOrDescriptionContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
             throw CourseException.notFound("No courses found matching the search criteria.");
         }
-        return searchResults.stream()
-                .map(category -> modelMapper.map(category, CategoryDto.class))
-                .collect(Collectors.toList());
+        return searchResults;
     }
     /* Method Advance */
     @Override

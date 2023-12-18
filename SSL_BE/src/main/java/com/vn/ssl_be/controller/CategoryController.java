@@ -27,6 +27,11 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.findById(categoryId), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Category>> getCategoriesByNameOrDesc(@RequestParam("search") String keyword)  {
+        return new ResponseEntity<>(categoryService.findAllCategoryByNameOrDescription(keyword), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         try {
@@ -53,6 +58,6 @@ public class CategoryController {
     public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) throws CourseException {
         Category category = categoryService.findById(categoryId);
         categoryService.deleteById(category.getCategoryId());
-        return ResponseEntity.ok().body("Deleta Successfully");
+        return ResponseEntity.ok().body("Delete Successfully");
     }
 }
