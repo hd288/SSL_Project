@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin/coures")
+@RequestMapping("/api/v1/admin/courses")
 public class CourseAdminController {
     private final CourseService courseService;
 
@@ -29,6 +29,11 @@ public class CourseAdminController {
     @GetMapping("/{courseId}")
     public ResponseEntity<Course> getCourseById(@PathVariable String courseId) {
         return new ResponseEntity<>(courseService.findById(courseId), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Course>> getCoursesByNameOrDesc(@RequestParam("search") String keyword)  {
+        return new ResponseEntity<>(courseService.findAllCourseByNameOrDescription(keyword), HttpStatus.OK);
     }
 
     @PostMapping
@@ -58,7 +63,7 @@ public class CourseAdminController {
     public ResponseEntity<String> deleteCourse(@PathVariable String courseId) throws CourseException {
         Course course = courseService.findById(courseId);
         courseService.deletedById(course.getCourseId());
-        return ResponseEntity.ok().body("Deleta Successfully");
+        return ResponseEntity.ok().body("Delete Successfully");
     }
 
 }

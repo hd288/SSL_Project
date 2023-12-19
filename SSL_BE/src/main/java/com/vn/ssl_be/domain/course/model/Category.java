@@ -22,7 +22,7 @@ public class Category {
     @Column(name = "category_name", unique = true)
     private String categoryName;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "text")
     private String description;
 
     @OneToMany(mappedBy = "category")

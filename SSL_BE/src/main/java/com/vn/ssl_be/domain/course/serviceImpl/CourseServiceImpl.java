@@ -12,7 +12,7 @@ import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +39,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course save(CourseRequest courseRequest) {
+        if(courseRequest.getCourseId()==null){
+            courseRequest.setIsActived(true);
+        }
         String imageCourseUrl = null;
         if (!courseRequest.getFileImageCourse().isEmpty()) {
             imageCourseUrl = (uploadService.uploadFileImage(courseRequest.getFileImageCourse()));
@@ -54,27 +57,26 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.deleteById(id);
     }
 
+    @Override
+    public List<Course> findAllCourseByNameOrDescription(String keyword) {
+        List<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword);
+        if (searchResults.isEmpty()) {
+            throw CourseException.notFound("No courses found matching the search criteria.");
+        };
+        return searchResults;
+    }
+
     /*************************************************************/
     /* Method Advance */
     @Override
     public List<CourseResponse> findAllCourseForUser() {
-        // List<Course> courses = courseRepository.findAllByActivedIsTrue();
         return findAll().stream()
                 .map(course -> modelMapper.map(course, CourseResponse.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CourseResponse getById(String id) throws CourseException {
-        Course course = courseRepository.getById(id);
-        if (course == null) {
-            throw CourseException.notFound("Course not found with id: " + id);
-        }
-        return convertToDto(course);
-    }
-
-    @Override
-    public List<CourseResponse> findAllCourseByNameOrDescription(String keyword) throws CourseException {
+    public List<CourseResponse> findAllCourseByNameOrDescriptionForUser(String keyword) throws CourseException {
         List<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
             throw CourseException.notFound("No courses found matching the search criteria.");
@@ -86,7 +88,7 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
-    public List<CourseResponse> findAllCourseByCategoryId(Long id) throws CourseException {
+    public List<CourseResponse> findAllCourseByCategoryIdForUser(Long id) throws CourseException {
         Category category = categoryService.findById(id);
         List<Course> courses = courseRepository.findAllByCategory(category);
         if (courses.isEmpty()) {
@@ -110,11 +112,9 @@ public class CourseServiceImpl implements CourseService {
         return new CourseResponse(
                 course.getCourseId(),
                 course.getCourseName(),
-                course.getCourseDesc(),
-                course.getImageCourseUrl(),
-                course.getCategory(),
                 course.getDuration(),
-                course.getLessons()
+                course.getCategory(),
+                course.getImageCourseUrl()
         );
     }
 }
