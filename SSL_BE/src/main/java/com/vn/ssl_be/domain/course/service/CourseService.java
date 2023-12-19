@@ -4,7 +4,6 @@ import com.vn.ssl_be.domain.course.dto.CourseRequest;
 import com.vn.ssl_be.domain.course.dto.CourseResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Course;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,12 +19,8 @@ public interface CourseService {
 
     /**************************/
     /* Method Advance */
-    List<CourseResponse> findAllCourseForUser();
-    CourseResponse getById(String id);
-    List<CourseResponse> findAllCourseByNameOrDescription(String keyword);
-    List<CourseResponse> findAllCourseByCategoryId(Long categoryId);
-
-
-
+    List<CourseResponse> findAllForUser();
+    List<CourseResponse> findAllByNameOrDescription(String keyword);
+    List<CourseResponse> findAllByCategoryId(Long categoryId);
 
 }

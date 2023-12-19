@@ -1,10 +1,13 @@
 package com.vn.ssl_be.domain.lesson.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ssl_be.domain.course.model.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,9 +25,14 @@ public class Lesson {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    @JsonIgnore
     private Course course;
 
     @Column(name = "unit_score")
     private double unitScore;
+
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Question> questions;
 }
 

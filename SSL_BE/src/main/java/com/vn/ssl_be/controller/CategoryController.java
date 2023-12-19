@@ -49,6 +49,7 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
     }
+
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) throws CourseException {
         Category category = categoryService.findById(categoryId);

@@ -10,7 +10,6 @@ import java.util.UUID;
 public class StudentQuestionId implements Serializable {
     @Column(name = "user_id")
     private UUID userId;
-
     @Column(name = "question_id")
     private Long questionId;
 }

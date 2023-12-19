@@ -3,7 +3,6 @@ package com.vn.ssl_be.domain.course.repository;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +24,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 //        List<Course> searchCourse(String keyword);
 
         /* Logic CourseWebUser */
-        List<Course> findAllByActivedIsTrue();
         List<Course> findAllByCategory(Category category);
         List<Course> findAllByCourseNameContainingOrCourseDescContaining(String courseName, String courseDesc);
-
 }

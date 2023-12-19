@@ -60,5 +60,4 @@ public class CourseAdminController {
         courseService.deletedById(course.getCourseId());
         return ResponseEntity.ok().body("Deleta Successfully");
     }
-
 }

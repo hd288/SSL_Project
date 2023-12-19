@@ -2,16 +2,15 @@ package com.vn.ssl_be.domain.course.serviceImpl;
 
 import com.vn.ssl_be.domain.course.dto.CategoryDto;
 import com.vn.ssl_be.domain.course.exception.CourseException;
-import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.repository.CategoryRepository;
+import com.vn.ssl_be.domain.course.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,19 +47,18 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     /*************************************************************/
+    /* Method Advance */
     @Override
-    public List<CategoryDto> findAllCategoryByNameOrDescription(String keyword) throws CourseException {
+    public List<CategoryDto> findAllForUser() {
+        return categoryRepository.getCategoriesAndQuantityCourses();
+    }
+
+    @Override
+    public List<Category> findAllByNameOrDescription(String keyword) throws CourseException {
         List<Category> searchResults = categoryRepository.findAllByCategoryNameContainingOrDescriptionContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
             throw CourseException.notFound("No courses found matching the search criteria.");
         }
-        return searchResults.stream()
-                .map(category -> modelMapper.map(category, CategoryDto.class))
-                .collect(Collectors.toList());
-    }
-    /* Method Advance */
-    @Override
-    public List<CategoryDto> getCategoriesAndQuantityCourses() {
-        return categoryRepository.getCategoriesAndQuantityCourses();
+        return searchResults;
     }
 }

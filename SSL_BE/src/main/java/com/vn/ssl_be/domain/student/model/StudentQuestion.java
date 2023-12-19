@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.student.model;
 
+import com.vn.ssl_be.domain.lesson.model.Answer;
 import com.vn.ssl_be.domain.lesson.model.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class StudentQuestion {
     private StudentQuestionId studentQuestionId;
 
     @Column(name = "student_answer", nullable = false)
-    private int studentAnswer;
+    private Answer studentAnswer;
 
     @ManyToOne
     @MapsId("userId")
