@@ -24,7 +24,4 @@ public interface CourseService {
     List<CourseResponse> findAllCourseByNameOrDescriptionForUser(String keyword);
     List<CourseResponse> findAllCourseByCategoryIdForUser(Long categoryId);
 
-
-
-
 }

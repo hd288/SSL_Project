@@ -6,11 +6,13 @@ import com.vn.ssl_be.domain.course.dto.CourseResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
+import com.vn.ssl_be.domain.course.repository.CategoryRepository;
 import com.vn.ssl_be.domain.course.repository.CourseRepository;
 import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 
@@ -24,6 +26,7 @@ public class CourseServiceImpl implements CourseService {
     private final ModelMapper modelMapper;
     private final UploadService uploadService;
     private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
     /* 4 Method Basic */
     @Override
@@ -44,11 +47,16 @@ public class CourseServiceImpl implements CourseService {
         }
         String imageCourseUrl = null;
         if (!courseRequest.getFileImageCourse().isEmpty()) {
-            imageCourseUrl = (uploadService.uploadFileImage(courseRequest.getFileImageCourse()));
+            imageCourseUrl = (uploadService.uploadFile(courseRequest.getFileImageCourse()));
         }
         Course course = modelMapper.map(courseRequest, Course.class);
         course.setImageCourseUrl(imageCourseUrl);
-        return courseRepository.save(course);
+
+        try {
+            return courseRepository.save(course);
+        } catch (DataIntegrityViolationException e) {
+            throw CourseException.duplicateName("Duplicated");
+        }
     }
 
 
