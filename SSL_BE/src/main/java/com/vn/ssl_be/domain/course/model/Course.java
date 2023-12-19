@@ -1,5 +1,5 @@
 package com.vn.ssl_be.domain.course.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
 import jakarta.persistence.*;

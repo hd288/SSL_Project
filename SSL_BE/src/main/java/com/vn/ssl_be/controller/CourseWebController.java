@@ -2,7 +2,6 @@ package com.vn.ssl_be.controller;
 
 import com.vn.ssl_be.domain.course.dto.CategoryDto;
 import com.vn.ssl_be.domain.course.dto.CourseResponse;
-import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.service.CourseService;
@@ -11,10 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequiredArgsConstructor
