@@ -1,9 +1,10 @@
-package com.vn.ssl_be.controller;
+package com.vn.ssl_be.controller.admin;
 
 import com.vn.ssl_be.domain.course.dto.CourseRequest;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.service.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class CourseAdminController {
     }
 
     @PostMapping
-    public ResponseEntity<Course> addCourse(@ModelAttribute CourseRequest courseRequest) {
+    public ResponseEntity<?> addCourse(@Valid @ModelAttribute CourseRequest courseRequest) {
         try {
             Course createdCategory = courseService.save(courseRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
@@ -45,14 +46,13 @@ public class CourseAdminController {
     }
 
     @PutMapping("/{courseId}")
-    public ResponseEntity<Course> editCourse(@ModelAttribute CourseRequest courseRequest,
+    public ResponseEntity<Course> editCourse(@Valid @ModelAttribute CourseRequest courseRequest,
                                              @PathVariable String courseId) {
         try {
             Course existingCourse = courseService.findById(courseId);
             courseRequest.setCourseId(existingCourse.getCourseId());
             Course updatedCourse = courseService.save(courseRequest);
             return ResponseEntity.ok(updatedCourse);
-
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }

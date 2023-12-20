@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.course.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
 import jakarta.persistence.*;
@@ -20,7 +21,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String courseId;
 
-    @Column(name = "course_name", unique = true)
+    @Column(name = "course_name", unique = true, nullable = false)
     private String courseName;
 
     @Column(name = "course_desc", nullable = false, columnDefinition = "text")
@@ -43,5 +44,6 @@ public class Course {
     private Category category;
 
     @OneToMany(mappedBy = "course")
+    @JsonIgnore
     private List<Lesson> lessons;
 }
