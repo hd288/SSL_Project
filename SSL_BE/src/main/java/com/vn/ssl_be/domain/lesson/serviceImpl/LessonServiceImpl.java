@@ -38,10 +38,18 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public Lesson save(LessonRequest lessonRequest) {
-        String contentLink = null;
-        if(!lessonRequest.getFileContentPDF().isEmpty()){
+        String contentLink;
+        if(lessonRequest.getLessonId()==null){
+            contentLink= null;
+        }else {
+            contentLink = lessonRepository.findById(lessonRequest.getLessonId()).orElse(new Lesson()).getContentLink();
+        }
+
+        if(lessonRequest.getFileContentPDF()!=null){
             contentLink = uploadService.uploadFile(lessonRequest.getFileContentPDF());
         }
+
+
         Lesson lesson = modelMapper.map(lessonRequest, Lesson.class);
         lesson.setContentLink(contentLink);
         try {

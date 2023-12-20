@@ -18,6 +18,9 @@ public class Lesson {
     @Column(name = "lesson_id")
     private Long lessonId;
 
+    @Column(name = "lesson_title", nullable = false)
+    private String lessonTitle;
+
     @Column(name = "content_link", nullable = false, columnDefinition = "text")
     private String contentLink;
 
@@ -26,7 +29,7 @@ public class Lesson {
     @JsonIgnoreProperties({"courseName", "courseDesc","duration","imageCourseUrl","category"})
     private Course course;
 
-//    @Column(name = "unit_score")
-//    private double unitScore;
+    @Column(name = "unit_score")
+    private double unitScore;
 }
 
