@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.lesson.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +18,24 @@ public class Question {
     @Column(name = "question_id")
     private Long questionId;
 
-    @Column(name = "question_text", nullable = false)
+    @Column(name = "question_text", nullable = false, columnDefinition = "text")
     private String questionText;
 
     @Column(name = "answer", nullable = false)
-    private int answer;
+    @Enumerated(EnumType.STRING)
+    private Answer answer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lesson_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "lesson_id", referencedColumnName = "lesson_id")
+    @JsonIgnoreProperties("{contentLink, course, unitScore, questions}")
     private Lesson lesson;
+
+    @Column(nullable = false)
+    private String optionA;
+    @Column(nullable = false)
+    private String optionB;
+    @Column(nullable = false)
+    private String optionC;
+    @Column(nullable = false)
+    private String optionD;
 }
