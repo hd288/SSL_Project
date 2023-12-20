@@ -1,6 +1,5 @@
 package com.vn.ssl_be.domain.course.dto;
 
-import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,7 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
-import com.vn.ssl_be.domain.course.dto.CategoryDto;
+import com.vn.ssl_be.domain.course.dto.CategoryRequest;
+import com.vn.ssl_be.domain.course.dto.CategoryResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.repository.CategoryRepository;
@@ -11,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +33,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category save(Category category) {
+    public Category save(CategoryRequest categoryRequest) {
+        Category category = modelMapper.map(categoryRequest, Category.class);
         try {
             return categoryRepository.save(category);
         } catch (DataIntegrityViolationException e) {
@@ -47,18 +50,17 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     /*************************************************************/
-    /* Method Advance */
     @Override
-    public List<CategoryDto> findAllForUser() {
-        return categoryRepository.getCategoriesAndQuantityCourses();
-    }
-
-    @Override
-    public List<Category> findAllByNameOrDescription(String keyword) throws CourseException {
+    public List<Category> findAllCategoryByNameOrDescription(String keyword) throws CourseException {
         List<Category> searchResults = categoryRepository.findAllByCategoryNameContainingOrDescriptionContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
             throw CourseException.notFound("No courses found matching the search criteria.");
         }
         return searchResults;
+    }
+    /* Method Advance */
+    @Override
+    public List<CategoryResponse> getCategoriesAndQuantityCourses() {
+        return categoryRepository.getCategoriesAndQuantityCourses();
     }
 }

@@ -1,55 +1,38 @@
 package com.vn.ssl_be.controller;
 
-import com.vn.ssl_be.domain.course.dto.CategoryDto;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
-import com.vn.ssl_be.domain.course.model.Category;
-import com.vn.ssl_be.domain.course.model.Course;
-import com.vn.ssl_be.domain.course.service.CategoryService;
-import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class CourseWebController {
     private final CourseService courseService;
-    private final CategoryService categoryService;
 
-    //Show List Categories For User
-    @GetMapping("/categories")
-    public ResponseEntity<List<CategoryDto>> getQuestions() {
-        return new ResponseEntity<>(categoryService.findAllForUser(),HttpStatus.OK);
-    }
-
-    //Show List Course For User
+    //Show list courses for user
     @GetMapping("/courses")
-    public ResponseEntity<List<CourseResponse>> getCourses() {
-        return new ResponseEntity<>(courseService.findAllForUser(),HttpStatus.OK);
+    public ResponseEntity<List<CourseResponse>> getCoursesForUser() {
+        return new ResponseEntity<>(courseService.findAllCourseForUser(), HttpStatus.OK);
     }
-
-    //Show Result Search Course For User
+    //Show list courses when user research
     @GetMapping("/courses/search")
-    public ResponseEntity<List<CourseResponse>> searchCourses(@RequestParam("search") String keyword) {
-        return new ResponseEntity<>(courseService.findAllByNameOrDescription(keyword),HttpStatus.OK);
+    public ResponseEntity<List<CourseResponse>> getCoursesByNameOrDescForUser(@RequestParam("query") String keyword) {
+        return new ResponseEntity<>(courseService.findAllCourseByNameOrDescriptionForUser(keyword), HttpStatus.OK);
     }
-
-    //Show the courses in a category when onClick
-    @GetMapping("/categories/{categoryId}")
-    public ResponseEntity<List<CourseResponse>> getCoursesByCategoryId(@PathVariable Long categoryId) {
-        return new ResponseEntity<>(courseService.findAllByCategoryId(categoryId),HttpStatus.OK);
+    //Show list courses in a category when user onclick
+    @GetMapping("/categories/{categoryId}/courses")
+    public ResponseEntity<List<CourseResponse>> getCoursesByCategoryIdForUser(@PathVariable Long categoryId) {
+        return new ResponseEntity<>(courseService.findAllCourseByCategoryIdForUser(categoryId), HttpStatus.OK);
     }
-    //Show detail course when onClick
+    //Show course detail when user research
     @GetMapping("/courses/{courseId}")
-    public ResponseEntity<Course> getCourseDetail(@PathVariable String courseId) {
-        return new ResponseEntity<>(courseService.findById(courseId),HttpStatus.OK);
+    public ResponseEntity<Course> getCourseDetailByIdForUser(@PathVariable String courseId) {
+        return new ResponseEntity<>(courseService.findById(courseId), HttpStatus.OK);
     }
 
 //    @GetMapping("/menu")

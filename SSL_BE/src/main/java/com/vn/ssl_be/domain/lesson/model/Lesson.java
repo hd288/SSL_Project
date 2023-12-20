@@ -1,13 +1,11 @@
 package com.vn.ssl_be.domain.lesson.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vn.ssl_be.domain.course.model.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,16 +21,12 @@ public class Lesson {
     @Column(name = "content_link", nullable = false)
     private String contentLink;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"courseName", "courseDesc", "duration", "imageCourseUrl", "category"})
     private Course course;
 
-    @Column(name = "unit_score")
-    private double unitScore;
-
-    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Question> questions;
+    //    @Column(name = "unit_score")
+//    private double unitScore;
 }
 

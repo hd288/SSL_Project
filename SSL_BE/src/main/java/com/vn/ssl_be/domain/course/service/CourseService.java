@@ -19,8 +19,9 @@ public interface CourseService {
 
     /**************************/
     /* Method Advance */
-    List<CourseResponse> findAllForUser();
-    List<CourseResponse> findAllByNameOrDescription(String keyword);
-    List<CourseResponse> findAllByCategoryId(Long categoryId);
+    List<Course> findAllCourseByNameOrDescription(String keyword);
+    List<CourseResponse> findAllCourseForUser();
+    List<CourseResponse> findAllCourseByNameOrDescriptionForUser(String keyword);
+    List<CourseResponse> findAllCourseByCategoryIdForUser(Long categoryId);
 
 }

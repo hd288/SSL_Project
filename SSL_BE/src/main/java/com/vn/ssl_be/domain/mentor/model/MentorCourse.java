@@ -1,6 +1,5 @@
 package com.vn.ssl_be.domain.mentor.model;
 
-import com.vn.ssl_be.domain.course.model.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,17 +1,11 @@
-package com.vn.ssl_be.controller;
+package com.vn.ssl_be.controller.admin;
 
-import com.vn.ssl_be.domain.course.dto.CourseRequest;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
-import com.vn.ssl_be.domain.course.model.Category;
-import com.vn.ssl_be.domain.course.model.Course;
-import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

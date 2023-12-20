@@ -26,4 +26,5 @@ public interface CourseRepository extends JpaRepository<Course, String> {
         /* Logic CourseWebUser */
         List<Course> findAllByCategory(Category category);
         List<Course> findAllByCourseNameContainingOrCourseDescContaining(String courseName, String courseDesc);
+
 }

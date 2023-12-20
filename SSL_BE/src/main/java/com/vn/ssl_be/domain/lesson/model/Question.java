@@ -1,6 +1,5 @@
 package com.vn.ssl_be.domain.lesson.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +24,6 @@ public class Question {
     @Column(name = "answer", nullable = false)
     @Enumerated(EnumType.STRING)
     private Answer answer;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "lesson_id", referencedColumnName = "lesson_id")

@@ -1,4 +1,4 @@
-package com.vn.ssl_be.domain.security.domain.model;
+package com.vn.ssl_be.domain.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

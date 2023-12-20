@@ -1,9 +1,10 @@
 package com.vn.ssl_be.domain.course.dto;
 
-import com.vn.ssl_be.domain.course.model.Category;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
@@ -11,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class CourseResponse {
     private String courseId;
     private String courseName;
-    private String courseDesc;
     private int duration;
+    @JsonIgnoreProperties({"categoryName","description"})
     private Category category;
     private String imageCourseUrl;
 }
