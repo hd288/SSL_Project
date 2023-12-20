@@ -1,39 +1,41 @@
-import React from "react";
-import { Button, Container, Form, Image, Navbar } from "react-bootstrap";
-import { BsSearch } from "react-icons/bs";
 import logo from "@assets/svg.png";
+import { Image, Button, Container, FormControl } from "react-bootstrap";
+import MyModal from "../elements/MyModal";
+import Login from "../../pages/Login&Signup/Login";
+import Signup from "../../pages/Login&Signup/Signup";
 
 export default function Header() {
   return (
-    <Navbar
-      expand="lg"
-      className="bg-body-tertiary px-3 d-flex justify-content-between align-items-center"
-    >
-      <Container>
-        <Navbar.Brand className="w-50 d-flex justify-content-start align-items-center gap-3">
-          <Image href="#" src={logo} className="w-25 rounded" />
-          <h5 className="text-secondary fw-lighter">
-            Inspire. Learn. Achieve.
-          </h5>
-        </Navbar.Brand>
-      </Container>
-
-      <Form className="d-flex flex-row w-75 h-75">
-        <Form.Control
-          type="search"
-          placeholder="Search for courses ..."
-          className="me-2 text-center"
-          aria-label="Search"
+    <div className="py-3 mx-5 d-flex justify-content-between align-items-center border-bottom py-2">
+      <Container className="p-0 m-0 d-flex flex-row justify-content-start align-items-center gap-3">
+        <Image
+          href="#"
+          src={logo}
+          className="rounded"
+          style={{ maxWidth: "70px" }}
         />
-        <Button variant="outline-primary" className="d-flex align-items-center">
-          <BsSearch />
-        </Button>
-      </Form>
-
-      <Container className="d-flex flex-row justify-content-end gap-2">
-        <Button variant="outline-danger">Login</Button>
-        <Button variant="danger">Signup</Button>
+        <h4 className="text-danger fw-lighter m-0">SwiftSkills Lab</h4>
       </Container>
-    </Navbar>
+      <Container className="p-0 m-0 d-flex flex-row justify-content-center align-items-center">
+        <FormControl
+          className="mx-2 w-75 border-danger"
+          placeholder="Search for courses, posts, videos..."
+        />
+      </Container>
+      <Container className="p-0 m-0 d-flex flex-row justify-content-end align-items-center gap-3">
+        <MyModal
+          buttonText="Login"
+          modalTitle="Login Form"
+          modalBodyComponent={<Login />}
+          buttonVariant="outline-danger"
+        />
+        <MyModal
+          buttonText="Sign up"
+          modalTitle="Sign up Form"
+          modalBodyComponent={<Signup />}
+          buttonVariant="danger"
+        />
+      </Container>
+    </div>
   );
 }

@@ -1,24 +1,29 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/header";
-import { Col, Container, Row } from "react-bootstrap";
+import Header from "@components/header";
+import MainRoutes from "./routes";
+import Footer from "./components/footer/Footer";
 import MainNav from "./components/navbar";
-import TestHeader from "./components/header/test";
+import { Col, Container, Row } from "react-bootstrap";
 
 // import './App.css'
 
 function App() {
   return (
     <>
-      {/* <Header /> */}
-      <TestHeader />
-      {/* <Container className="p-0 m-0">
+      <Header />
+
+      <Container className="p-0 m-0">
         <Row>
-          <Col sm={2}>
+          <Col lg={2} className="px-5 mt-5 ">
             <MainNav />
           </Col>
-          <Col sm={10}>sm=8</Col>
+          <Col lg={10}>
+            <MainRoutes />
+          </Col>
         </Row>
-      </Container> */}
+      </Container>
+
+      <Footer />
     </>
   );
 }

@@ -1,35 +1,47 @@
 import React from "react";
 import { Button, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { BsFillHouseFill,BsMapFill,BsFillPostcardFill   } from "react-icons/bs";
+import {
+  BsFillHouseFill,
+  BsMapFill,
+  BsSearch,
+  BsFillPostcardFill,
+} from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function MainNav() {
   return (
-    <Navbar bg="light" data-bs-theme="light">
-      <Container>
-        <Nav className="me-auto d-flex flex-column mx-2 gap-3">
-          <Nav.Link
-            className="btn btn-light d-flex align-items-center justify-content-start gap-2"
-            href="#home"
-          >
-            <BsFillHouseFill />
-            Home
-          </Nav.Link>
-          <Nav.Link
-            className="btn btn-light d-flex align-items-center justify-content-start gap-2"
-            href="#features"
-          >
-            <BsMapFill  />
-            Careers
-          </Nav.Link>
-          <Nav.Link
-            className="btn btn-light d-flex align-items-center justify-content-start gap-2"
-            href="#pricing"
-          >
-            <BsFillPostcardFill  />
-            Blogs
-          </Nav.Link>
+    <Navbar className="p-0 m-0 " sticky="top" bg="light" data-bs-theme="light">
+      <div className="d-flex flex-row justify-content-center align-items-center">
+        <Nav className="me-auto d-flex flex-column justify-content-center mx-2 gap-3">
+          <Link to="/" className="text-decoration-none">
+            <Nav.Link
+              className="btn btn-light text-danger d-flex align-items-center justify-content-start gap-2"
+              href="#home"
+            >
+              <BsFillHouseFill />
+              Home
+            </Nav.Link>
+          </Link>
+          <Link to="/careers" className="text-decoration-none">
+            <Nav.Link
+              className="btn btn-light text-danger d-flex align-items-center justify-content-start gap-2"
+              href="#careers"
+            >
+              <BsMapFill />
+              Careers
+            </Nav.Link>
+          </Link>
+          <Link to="/blogs" className="text-decoration-none">
+            <Nav.Link
+              className="btn btn-light text-danger d-flex align-items-center justify-content-start gap-2"
+              href="#blogs"
+            >
+              <BsFillPostcardFill />
+              Blogs
+            </Nav.Link>
+          </Link>
         </Nav>
-      </Container>
+      </div>
     </Navbar>
   );
 }
