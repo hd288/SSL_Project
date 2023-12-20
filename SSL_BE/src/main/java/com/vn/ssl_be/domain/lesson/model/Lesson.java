@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.lesson.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vn.ssl_be.domain.course.model.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,14 +18,15 @@ public class Lesson {
     @Column(name = "lesson_id")
     private Long lessonId;
 
-    @Column(name = "content_link", nullable = false)
+    @Column(name = "content_link", nullable = false, columnDefinition = "text")
     private String contentLink;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    @JsonIgnoreProperties({"courseName", "courseDesc","duration","imageCourseUrl","category"})
     private Course course;
 
-    @Column(name = "unit_score")
-    private double unitScore;
+//    @Column(name = "unit_score")
+//    private double unitScore;
 }
 

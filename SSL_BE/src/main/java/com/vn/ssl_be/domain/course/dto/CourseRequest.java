@@ -2,6 +2,10 @@ package com.vn.ssl_be.domain.course.dto;
 
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +20,9 @@ public class CourseRequest {
     private String courseId;
     private String courseName;
     private String courseDesc;
+    @NotNull
     private Integer duration;
-    private Category category;
-    private List<Lesson> lessons;
     private MultipartFile fileImageCourse;
     private Boolean isActived;
+    private Category category;
 }

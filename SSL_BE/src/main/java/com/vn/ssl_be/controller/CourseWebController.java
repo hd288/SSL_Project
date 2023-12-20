@@ -1,6 +1,6 @@
 package com.vn.ssl_be.controller;
 
-import com.vn.ssl_be.domain.course.dto.CategoryDto;
+import com.vn.ssl_be.domain.course.dto.CategoryResponse;
 import com.vn.ssl_be.domain.course.dto.CourseResponse;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.service.CategoryService;
@@ -18,13 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 public class CourseWebController {
     private final CourseService courseService;
-    private final CategoryService categoryService;
 
-    //Show list categories for user
-    @GetMapping("/categories")
-    public ResponseEntity<List<CategoryDto>> getCategoriesForUser() {
-        return new ResponseEntity<>(categoryService.getCategoriesAndQuantityCourses(), HttpStatus.OK);
-    }
     //Show list courses for user
     @GetMapping("/courses")
     public ResponseEntity<List<CourseResponse>> getCoursesForUser() {

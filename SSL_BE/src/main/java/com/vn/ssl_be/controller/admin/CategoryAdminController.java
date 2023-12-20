@@ -1,8 +1,10 @@
-package com.vn.ssl_be.controller;
+package com.vn.ssl_be.controller.admin;
 
+import com.vn.ssl_be.domain.course.dto.CategoryRequest;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -13,8 +15,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/categories")
-public class CategoryController {
+@RequestMapping("/api/v1/admin/categories")
+public class CategoryAdminController {
     private final CategoryService categoryService;
 
     @GetMapping
@@ -33,9 +35,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryRequest categoryRequest) {
         try {
-            Category createdCategory = categoryService.save(category);
+            Category createdCategory = categoryService.save(categoryRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
@@ -43,12 +45,12 @@ public class CategoryController {
     }
 
     @PutMapping("/{categoryId}")
-    public ResponseEntity<Category> editCategory(@RequestBody Category category,
+    public ResponseEntity<Category> editCategory(@Valid @RequestBody CategoryRequest categoryRequest,
                                                  @PathVariable Long categoryId) {
         try {
             Category existingCategory = categoryService.findById(categoryId);
-            category.setCategoryId(existingCategory.getCategoryId());
-            Category updatedCategory = categoryService.save(category);
+            categoryRequest.setCategoryId(existingCategory.getCategoryId());
+            Category updatedCategory = categoryService.save(categoryRequest);
             return ResponseEntity.ok(updatedCategory);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);

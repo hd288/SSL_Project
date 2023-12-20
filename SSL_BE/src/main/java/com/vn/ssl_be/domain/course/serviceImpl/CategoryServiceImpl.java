@@ -1,6 +1,7 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
-import com.vn.ssl_be.domain.course.dto.CategoryDto;
+import com.vn.ssl_be.domain.course.dto.CategoryRequest;
+import com.vn.ssl_be.domain.course.dto.CategoryResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.model.Category;
@@ -32,7 +33,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category save(Category category) {
+    public Category save(CategoryRequest categoryRequest) {
+        Category category = modelMapper.map(categoryRequest, Category.class);
         try {
             return categoryRepository.save(category);
         } catch (DataIntegrityViolationException e) {
@@ -58,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
     /* Method Advance */
     @Override
-    public List<CategoryDto> getCategoriesAndQuantityCourses() {
+    public List<CategoryResponse> getCategoriesAndQuantityCourses() {
         return categoryRepository.getCategoriesAndQuantityCourses();
     }
 }

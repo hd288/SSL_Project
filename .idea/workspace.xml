@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35202114-8304-4659-8670-8a32064d6d9c" name="Changes" comment="test be 2">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CategoryAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseWebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseWebController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CategoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CategoryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CourseRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CourseRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CourseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/lesson/model/Lesson.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/lesson/model/Lesson.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,20 +45,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/BenLaptop/Desktop/New folder (2)/SSL_Project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Features/Controller__CoursesWeb",
+    "last_opened_file_path": "C:/Users/BenLaptop/Desktop/New folder (2)/SSL_Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="SSL_Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SSL_Project" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="Initial commit">
@@ -74,6 +101,7 @@
       <workItem from="1702623976039" duration="50000" />
       <workItem from="1702812386503" duration="17000" />
       <workItem from="1702812501211" duration="13000" />
+      <workItem from="1702981650534" duration="12000" />
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />

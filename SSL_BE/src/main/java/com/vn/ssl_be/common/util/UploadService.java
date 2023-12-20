@@ -24,7 +24,7 @@ public class UploadService {
     private final ServletContext servletContext;
     private final Storage storage;
 
-    public String uploadFileImage(MultipartFile fileUpload){
+    public String uploadFile(MultipartFile fileUpload){
         String uploadPath = servletContext.getRealPath("/uploads");
         File file = new File(uploadPath);
         if (!file.exists()) {
