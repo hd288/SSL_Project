@@ -24,6 +24,9 @@ public class Course {
     @Column(name = "course_name", unique = true, nullable = false)
     private String courseName;
 
+    @Column(name = "course_title", nullable = false, columnDefinition = "text")
+    private String courseTitle;
+
     @Column(name = "course_desc", nullable = false, columnDefinition = "text")
     private String courseDesc;
 

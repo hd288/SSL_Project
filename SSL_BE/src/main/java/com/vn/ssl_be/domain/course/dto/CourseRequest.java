@@ -18,7 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseRequest {
     private String courseId;
+    @NotNull
     private String courseName;
+    @NotNull
+    private String courseTitle;
+    @NotNull
     private String courseDesc;
     @NotNull
     private Integer duration;

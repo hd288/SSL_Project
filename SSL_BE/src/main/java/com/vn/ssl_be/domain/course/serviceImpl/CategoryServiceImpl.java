@@ -9,6 +9,8 @@ import com.vn.ssl_be.domain.course.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+
 
     /* 4 Method Basic */
     @Override
@@ -44,6 +47,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(Long id) {
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         categoryRepository.deleteById(id);
     }
 

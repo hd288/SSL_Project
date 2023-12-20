@@ -30,7 +30,7 @@ public class CourseWebController {
         return new ResponseEntity<>(courseService.findAllCourseByNameOrDescriptionForUser(keyword), HttpStatus.OK);
     }
     //Show list courses in a category when user onclick
-    @GetMapping("/categories/{categoryId}/courses")
+    @GetMapping("/courses/categories/{categoryId}")
     public ResponseEntity<List<CourseResponse>> getCoursesByCategoryIdForUser(@PathVariable Long categoryId) {
         return new ResponseEntity<>(courseService.findAllCourseByCategoryIdForUser(categoryId), HttpStatus.OK);
     }
