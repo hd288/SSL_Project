@@ -1,6 +1,6 @@
 package com.vn.ssl_be.domain.mentor.model;
 
-import com.vn.ssl_be.domain.security.domain.model.User;
+import com.vn.ssl_be.domain.security.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class Mentor {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
-    private UUID userId;
+    private String userId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

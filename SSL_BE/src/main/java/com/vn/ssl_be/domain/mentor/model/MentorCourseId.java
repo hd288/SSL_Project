@@ -8,7 +8,7 @@ import java.util.UUID;
 @Embeddable
 public class MentorCourseId implements Serializable {
     @Column(name = "user_id")
-    private UUID userId;
+    private String userId;
     @Column(name = "course_id")
     private String courseId;
 }

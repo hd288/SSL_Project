@@ -1,7 +1,8 @@
 package com.vn.ssl_be.domain.student.model;
-import com.vn.ssl_be.domain.security.domain.model.User;
+import com.vn.ssl_be.domain.security.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class Student {
     @Id
     @Column(name = "user_id")
-    private UUID userId;
+    private String userId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
