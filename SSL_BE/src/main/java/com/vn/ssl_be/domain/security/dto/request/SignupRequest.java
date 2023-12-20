@@ -41,12 +41,12 @@ public class SignupRequest {
     @NotBlank(message = "Please enter ConfirmPassword")
     private String confirmPassword;
 
-    @Pattern(regexp = "^[0][1-9]{9,10}$" , message = "Invalid Phone Number")
-    @NotBlank(message = "Please enter Phone number")
-    private String phoneNumber;
+//    @Pattern(regexp = "^[0][1-9]{9,10}$" , message = "Invalid Phone Number")
+//    @NotBlank(message = "Please enter Phone number")
+//    private String phoneNumber;
 
-    @NotNull(message = "Please choose Gender")
-    private boolean gender;
+//    @NotNull(message = "Please choose Gender")
+//    private boolean gender;
 
 
 }

@@ -32,10 +32,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private boolean gender;
 
     @Column(name = "birth_day")
