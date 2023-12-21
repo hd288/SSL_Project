@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 public class CourseResponse {
     private String courseId;
     private String courseName;
+    private String courseTitle;
     private int duration;
-    @JsonIgnoreProperties({"categoryName","description"})
-    private Category category;
+//    @JsonIgnoreProperties({"categoryId","description"})
+//    private Category category;
+    private String categoryName;
     private String imageCourseUrl;
 }

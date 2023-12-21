@@ -1,5 +1,6 @@
 package com.vn.ssl_be.controller.admin;
 
+import com.vn.ssl_be.domain.security.service.UserService;
 import com.vn.ssl_be.domain.student.exception.StudentException;
 import com.vn.ssl_be.domain.student.model.Student;
 import com.vn.ssl_be.domain.student.service.StudentService;
@@ -12,19 +13,26 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/admin/students")
-public class StudentAdminController {
+@RequestMapping("api/v1/admin/accounts")
+public class UserAdminController {
     private final StudentService studentService;
+    private final UserService userService;
 
+    // Get List Students For Admin
     @GetMapping
-    public ResponseEntity<List<Student>> getStudents() {
+    public ResponseEntity<List<Student>> getAccount() {
         return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
     }
-
+    // Get Student By Id For Admin
     @GetMapping("/{userId}")
-    public ResponseEntity<Student> getStudentById(@PathVariable String userId) throws StudentException {
+    public ResponseEntity<Student> getAccountById(@PathVariable String userId) throws StudentException {
         return new ResponseEntity<>(studentService.findById(userId), HttpStatus.OK);
     }
 
+    @PatchMapping("/{userId}")
+    public ResponseEntity<String> toggleStatusById(@PathVariable String userId) {
+        userService.toggleStatusById(userId);
+        return ResponseEntity.ok("Account status changed successfully");
+    }
 
 }

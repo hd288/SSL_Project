@@ -56,4 +56,11 @@ public class AuthController {
                         "Refresh token is not in database!"));
     }
 
+    @PostMapping("/logout/{userId}")
+    public ResponseEntity<String> logoutUser(@PathVariable String userId ) {
+        refreshTokenService.deleteByUserId(userId);
+        return ResponseEntity.ok()
+                .body("Logout Successfully");
+    }
+
 }

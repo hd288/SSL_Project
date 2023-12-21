@@ -34,6 +34,7 @@ public class SignupRequest {
     @ValidEmail
     @NotBlank(message = "Please enter Email")
     private String email;
+
     @StrongPassword
     @NotBlank(message = "Please enter Password")
     private String password;

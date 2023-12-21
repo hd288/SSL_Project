@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentProfileResponse {
+public class StudentResponse {
 
     private String userId;
 
@@ -34,10 +34,4 @@ public class StudentProfileResponse {
 
     @Temporal(TemporalType.DATE)
     private Date createDate;
-
-    private String fullName;
-
-    public String getFullName() {
-        return firstName +  " " + lastName;
-    }
 }

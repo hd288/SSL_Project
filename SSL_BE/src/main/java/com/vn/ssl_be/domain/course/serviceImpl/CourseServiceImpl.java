@@ -83,7 +83,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseResponse> findAllCourseForUser() {
         return findAll().stream()
-                .map(course -> modelMapper.map(course, CourseResponse.class))
+                .map(course ->{
+                    CourseResponse courseResponse = modelMapper.map(course, CourseResponse.class);
+                    courseResponse.setCategoryName(course.getCategory().getCategoryName());
+                    return courseResponse;
+                } )
                 .collect(Collectors.toList());
     }
 
@@ -114,19 +118,19 @@ public class CourseServiceImpl implements CourseService {
 
     /*************************************************************/
     /* Create your own mapper method*/ /* But now we are supported by Modermapper*/
-    private List<CourseResponse> transferData(List<Course> courses) {
-        return courses.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
-
-    private CourseResponse convertToDto(Course course) {
-        return new CourseResponse(
-                course.getCourseId(),
-                course.getCourseName(),
-                course.getDuration(),
-                course.getCategory(),
-                course.getImageCourseUrl()
-        );
-    }
+//    private List<CourseResponse> transferData(List<Course> courses) {
+//        return courses.stream()
+//                .map(this::convertToDto)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private CourseResponse convertToDto(Course course) {
+//        return new CourseResponse(
+//                course.getCourseId(),
+//                course.getCourseName(),
+//                course.getDuration(),
+//                course.getCategory(),
+//                course.getImageCourseUrl()
+//        );
+//    }
 }
