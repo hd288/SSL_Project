@@ -10,6 +10,4 @@ public class StudentException extends DomainException {
     public StudentException(String message, Throwable cause) {
         super(message, cause);
     }
-
-
 }
