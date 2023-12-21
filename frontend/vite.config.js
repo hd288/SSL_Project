@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { fileURLToPath, URL } from 'url'
 
 export default defineConfig({
   plugins: [react()],
@@ -15,7 +16,10 @@ export default defineConfig({
       "@services": `${path.resolve(__dirname, "./src/services/")}`,
       "@routes": `${path.resolve(__dirname, "./src/routes/")}`,
       "@utils": `${path.resolve(__dirname, "./src/utils/")}`,
-      "@slices": `${path.resolve(__dirname, "./src/stores/slices/")}`
+      // "@slices": `${path.resolve(__dirname, "./src/stores/slices/")}`,
+      // "@api": `${path.resolve(__dirname, "./src/api/")}`,
+      "@store" :fileURLToPath(new URL ("./src/store/slices", import.meta.url)),
+      "@api": fileURLToPath(new URL ("./src/api", import.meta.url)),
     },
   },
 
@@ -26,3 +30,4 @@ export default defineConfig({
     }
   }
 })
+
