@@ -26,4 +26,9 @@ public interface QuestionService {
 
     void deleteAllByLesson_LessonId(Long lessonId);
 
+    // count numbers of questions by lessonId
+
+    int countByLessonId(Long lessonId);
+
+    List<String> getCorrectAnswersByLessonId(Long lessonId);
 }

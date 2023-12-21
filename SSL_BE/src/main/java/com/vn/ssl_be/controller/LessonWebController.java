@@ -14,9 +14,4 @@ import java.util.List;
 public class LessonWebController {
     private final LessonService lessonService;
 
-
-
-
-
-
 }

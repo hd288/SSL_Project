@@ -64,4 +64,14 @@ public class QuestionServiceImpl implements QuestionService {
         questionRepository.deleteAllByLesson_LessonId(lessonId);
     }
 
+    @Override
+    public int countByLessonId(Long lessonId) {
+        int numsOfQuestions = questionRepository.countByLessonId(lessonId);
+        return numsOfQuestions;
+    }
+
+    @Override
+    public List<String> getCorrectAnswersByLessonId(Long lessonId) {
+       return questionRepository.getCorrectAnswersByLessonId(lessonId);
+    }
 }
