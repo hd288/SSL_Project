@@ -1,8 +1,8 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
 import com.vn.ssl_be.common.util.UploadService;
-import com.vn.ssl_be.domain.course.dto.CourseRequest;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
+import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
+import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
@@ -42,11 +42,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course save(CourseRequest courseRequest) {
+        String imageCourseUrl;
         if(courseRequest.getCourseId()==null){
             courseRequest.setIsActived(true);
+            imageCourseUrl = null;
+        }else {
+            imageCourseUrl = courseRepository.findById(courseRequest.getCourseId()).orElse(new Course()).getImageCourseUrl();
         }
-        String imageCourseUrl = null;
-        if (!courseRequest.getFileImageCourse().isEmpty()) {
+
+        if (courseRequest.getFileImageCourse()!=null) {
             imageCourseUrl = (uploadService.uploadFile(courseRequest.getFileImageCourse()));
         }
         Course course = modelMapper.map(courseRequest, Course.class);

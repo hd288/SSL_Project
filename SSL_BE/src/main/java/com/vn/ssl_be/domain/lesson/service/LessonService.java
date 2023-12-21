@@ -1,10 +1,7 @@
 package com.vn.ssl_be.domain.lesson.service;
 
-import com.vn.ssl_be.domain.course.dto.CategoryRequest;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
-import com.vn.ssl_be.domain.course.exception.CourseException;
-import com.vn.ssl_be.domain.course.model.Category;
-import com.vn.ssl_be.domain.lesson.dto.LessonRequest;
+import com.vn.ssl_be.domain.lesson.dto.request.LessonRequest;
+import com.vn.ssl_be.domain.lesson.exception.LessonException;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
 
 import java.util.List;
@@ -12,11 +9,12 @@ import java.util.List;
 public interface LessonService{
     /* 4 Method Basic */
     List<Lesson> findAll();
-    Lesson findById(Long lessonId) throws CourseException;
+    Lesson findById(Long lessonId) throws LessonException;
     Lesson save (LessonRequest lessonRequest);
     void deleteById(Long lessonId);
 
     /**************************/
     /* Method Advance */
     List<Lesson> findAllLessonByCourseId(String courseId);
+    List<Lesson> findAllCourseByTitle(String keyword);
 }

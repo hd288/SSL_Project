@@ -1,4 +1,4 @@
-package com.vn.ssl_be.domain.course.dto;
+package com.vn.ssl_be.domain.course.dto.request;
 
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
@@ -18,7 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseRequest {
     private String courseId;
+    @NotNull
     private String courseName;
+    @NotNull
+    private String courseTitle;
+    @NotNull
     private String courseDesc;
     @NotNull
     private Integer duration;

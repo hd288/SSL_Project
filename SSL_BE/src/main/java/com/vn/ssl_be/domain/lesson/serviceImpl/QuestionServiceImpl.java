@@ -1,7 +1,7 @@
 package com.vn.ssl_be.domain.lesson.serviceImpl;
 
-import com.vn.ssl_be.domain.lesson.dto.QuestionRequest;
-import com.vn.ssl_be.domain.lesson.dto.QuestionResponse;
+import com.vn.ssl_be.domain.lesson.dto.request.QuestionRequest;
+import com.vn.ssl_be.domain.lesson.dto.response.QuestionResponse;
 import com.vn.ssl_be.domain.lesson.exception.LessonException;
 import com.vn.ssl_be.domain.lesson.model.Question;
 import com.vn.ssl_be.domain.lesson.repository.QuestionRepository;

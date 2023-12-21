@@ -1,7 +1,7 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
-import com.vn.ssl_be.domain.course.dto.CategoryRequest;
-import com.vn.ssl_be.domain.course.dto.CategoryResponse;
+import com.vn.ssl_be.domain.course.dto.request.CategoryRequest;
+import com.vn.ssl_be.domain.course.dto.response.CategoryResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.model.Category;
@@ -9,6 +9,8 @@ import com.vn.ssl_be.domain.course.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+
 
     /* 4 Method Basic */
     @Override
@@ -44,6 +47,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(Long id) {
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         categoryRepository.deleteById(id);
     }
 
@@ -54,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllCategoryByNameOrDescription(String keyword) throws CourseException {
         List<Category> searchResults = categoryRepository.findAllByCategoryNameContainingOrDescriptionContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
-            throw CourseException.notFound("No courses found matching the search criteria.");
+            throw CourseException.notFound("No categories found matching the search criteria.");
         }
         return searchResults;
     }

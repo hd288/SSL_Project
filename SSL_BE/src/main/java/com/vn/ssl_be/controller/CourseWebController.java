@@ -1,9 +1,7 @@
 package com.vn.ssl_be.controller;
 
-import com.vn.ssl_be.domain.course.dto.CategoryResponse;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
+import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
 import com.vn.ssl_be.domain.course.model.Course;
-import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +28,7 @@ public class CourseWebController {
         return new ResponseEntity<>(courseService.findAllCourseByNameOrDescriptionForUser(keyword), HttpStatus.OK);
     }
     //Show list courses in a category when user onclick
-    @GetMapping("/categories/{categoryId}/courses")
+    @GetMapping("/courses/categories/{categoryId}")
     public ResponseEntity<List<CourseResponse>> getCoursesByCategoryIdForUser(@PathVariable Long categoryId) {
         return new ResponseEntity<>(courseService.findAllCourseByCategoryIdForUser(categoryId), HttpStatus.OK);
     }
