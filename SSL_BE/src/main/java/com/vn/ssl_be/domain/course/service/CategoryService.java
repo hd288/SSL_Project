@@ -1,7 +1,7 @@
 package com.vn.ssl_be.domain.course.service;
 
-import com.vn.ssl_be.domain.course.dto.CategoryRequest;
-import com.vn.ssl_be.domain.course.dto.CategoryResponse;
+import com.vn.ssl_be.domain.course.dto.request.CategoryRequest;
+import com.vn.ssl_be.domain.course.dto.response.CategoryResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 

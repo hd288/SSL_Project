@@ -1,6 +1,6 @@
 package com.vn.ssl_be.controller.admin;
 
-import com.vn.ssl_be.domain.lesson.dto.LessonRequest;
+import com.vn.ssl_be.domain.lesson.dto.request.LessonRequest;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
 import com.vn.ssl_be.domain.lesson.service.LessonService;
 import jakarta.validation.Valid;
@@ -30,6 +30,10 @@ public class LessonAdminController {
     @GetMapping("/courses/{courseId}")
     public ResponseEntity<List<Lesson>> getLessonByCourseId(@PathVariable("courseId") String courseId) {
         return new ResponseEntity<>(lessonService.findAllLessonByCourseId(courseId), HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<Lesson>> getLessonsByTitle(@RequestParam("search") String keyword)  {
+        return new ResponseEntity<>(lessonService.findAllLessonByCourseId(keyword), HttpStatus.OK);
     }
 
     @PostMapping()

@@ -1,9 +1,7 @@
 package com.vn.ssl_be.controller;
 
-import com.vn.ssl_be.domain.course.dto.CategoryResponse;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
+import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
 import com.vn.ssl_be.domain.course.model.Course;
-import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

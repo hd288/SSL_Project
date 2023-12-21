@@ -1,4 +1,4 @@
-package com.vn.ssl_be.domain.lesson.dto;
+package com.vn.ssl_be.domain.lesson.dto.request;
 
 import com.vn.ssl_be.domain.course.model.Course;
 import jakarta.validation.constraints.NotNull;

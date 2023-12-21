@@ -4,7 +4,8 @@ import com.vn.ssl_be.common.util.UploadService;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.repository.CourseRepository;
-import com.vn.ssl_be.domain.lesson.dto.LessonRequest;
+import com.vn.ssl_be.domain.lesson.dto.request.LessonRequest;
+import com.vn.ssl_be.domain.lesson.exception.LessonException;
 import com.vn.ssl_be.domain.lesson.repository.LessonRepository;
 import com.vn.ssl_be.domain.lesson.service.LessonService;
 import com.vn.ssl_be.domain.lesson.model.Lesson;
@@ -30,9 +31,9 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public Lesson findById(Long lessonId) throws CourseException {
+    public Lesson findById(Long lessonId) throws LessonException {
         return lessonRepository.findById(lessonId)
-                .orElseThrow(() -> CourseException.notFound("Could not find Id!")
+                .orElseThrow(() -> LessonException.notFound("Could not find Id!")
         );
     }
 
@@ -55,7 +56,7 @@ public class LessonServiceImpl implements LessonService {
         try {
             return lessonRepository.save(lesson);
         } catch (DataIntegrityViolationException e) {
-            throw CourseException.duplicateName("Duplicated");
+            throw LessonException.duplicateName("Duplicated");
         }
     }
 
@@ -65,11 +66,20 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> findAllLessonByCourseId(String courseId) throws CourseException {
+    public List<Lesson> findAllLessonByCourseId(String courseId) throws LessonException {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> CourseException.notFound("Could not found id")
+                .orElseThrow(() -> LessonException.notFound("Could not found id")
                 );
         return lessonRepository.findAllByCourse(course);
+    }
+
+    @Override
+    public List<Lesson> findAllCourseByTitle(String keyword) {
+        List<Lesson> searchResults = lessonRepository.findAllByLessonTitleContaining(keyword);
+        if (searchResults.isEmpty()) {
+            throw CourseException.notFound("No lessons found matching the search criteria.");
+        }
+        return searchResults;
     }
 
 }

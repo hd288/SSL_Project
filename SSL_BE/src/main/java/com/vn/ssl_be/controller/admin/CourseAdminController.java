@@ -1,6 +1,6 @@
 package com.vn.ssl_be.controller.admin;
 
-import com.vn.ssl_be.domain.course.dto.CourseRequest;
+import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.service.CourseService;
