@@ -9,22 +9,20 @@ import { Col, Container, Row } from "react-bootstrap";
 
 function App() {
   return (
-    <>
+    <div className="w-100">
       <Header />
 
-      <Container className="p-0 m-0">
-        <Row>
-          <Col lg={2} className="px-5 mt-5 ">
-            <MainNav />
-          </Col>
-          <Col lg={10}>
-            <MainRoutes />
-          </Col>
-        </Row>
-      </Container>
+      <div className="d-flex flex-row w-100 px-5">
+        <div className="d-flex flex-column mt-5" style={{width:"10%"}}>
+          <MainNav />
+        </div>
+        <div className="d-flex flex-column "  style={{width:"90%"}}>
+          <MainRoutes />
+        </div>
+      </div>
 
       <Footer />
-    </>
+    </div>
   );
 }
 

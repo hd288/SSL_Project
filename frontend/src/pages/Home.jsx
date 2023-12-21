@@ -1,10 +1,11 @@
+
 import React, { useState } from "react";
-import SingleCarousel from "../components/carousels/SingleCarousel";
 import { ToastContainer } from "react-toastify";
 import ToastComponent from "../components/elements/Toast";
 import { Container, Image } from "react-bootstrap";
-import CustomPagination from "../components/elements/CustomPagination";
+import SingleCarousel from "../components/carousels/SingleCarousel";
 import Card from "../components/card/Card";
+import CustomPagination from "../components/elements/CustomPagination";
 
 export default function Home() {
   const yourArrayOfObjects = [
@@ -66,25 +67,15 @@ export default function Home() {
     },
   ];
 
-  const [currentPageIT, setCurrentPageIT] = useState(1);
-  const [currentPageEng, setCurrentPageEng] = useState(1);
-  const [currentPageJp, setCurrentPageJp] = useState(1);
-  const [currentPagePosts, setCurrentPagePosts] = useState(1);
+  const [currentPage, setCurrentPage] = useState({
+    IT: 1,
+    Eng: 1,
+    Jp: 1,
+    Posts: 1,
+  });
 
-  const handlePageChangeIT = (pageNumber, itemsPP) => {
-    setCurrentPageIT(pageNumber);
-  };
-
-  const handlePageChangeEng = (pageNumber, itemsPP) => {
-    setCurrentPageEng(pageNumber);
-  };
-
-  const handlePageChangeJp = (pageNumber, itemsPP) => {
-    setCurrentPageJp(pageNumber);
-  };
-
-  const handlePageChangePosts = (pageNumber, itemsPP) => {
-    setCurrentPagePosts(pageNumber);
+  const handlePageChange = (pageNumber, section) => {
+    setCurrentPage((prev) => ({ ...prev, [section]: pageNumber }));
   };
 
   const renderItemsForPage = (objectArray, currentPage, itemsPerPage) => {
@@ -96,8 +87,9 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className="px-5">
       <div>
+        {/* Toast */}
         <ToastContainer
           position="top-right"
           autoClose={4000}
@@ -112,81 +104,36 @@ export default function Home() {
         />
         <ToastComponent
           type="info"
-          message="Good day! Ready to dive into knowledges?"
+          message="Good day! Ready to dive into knowledge?"
         />
       </div>
-      {/* Toast above */}
 
-      <div
-        className="d-flex justify-content-center flex-column"
-        style={{ minWidth: "1550px" }}
-      >
-        {/* carousel */}
+      <div className="d-flex flex-column w-100">
+        {/* Carousel */}
         <SingleCarousel />
-        {/* carousel */}
 
-        <h3 className="px-5 mx-5">IT Courses</h3>
-        <div className="py-3 m-0 w-100">
-          <div className="d-flex flex-wrap gap-5 w-100 justify-content-center">
-            {renderItemsForPage(yourArrayOfObjects, currentPageIT, 8)}
+        {/* Section rendering */}
+        {["IT", "Eng", "Jp", "Posts"].map((section, index) => (
+          <div key={index} className="py-3 m-0 w-100">
+            <h3 className="mx-4">{`${section} Courses`}</h3>
+            <div className="d-flex flex-wrap gap-5 w-100 justify-content-center">
+              {renderItemsForPage(
+                yourArrayOfObjects,
+                currentPage[section],
+                section === "Posts" ? 4 : 8
+              )}
+            </div>
+            <CustomPagination
+              totalItems={yourArrayOfObjects.length}
+              itemsPerPage={section === "Posts" ? 4 : 8}
+              onPageChange={(pageNumber) =>
+                handlePageChange(pageNumber, section)
+              }
+            />
           </div>
-          <CustomPagination
-            totalItems={yourArrayOfObjects.length}
-            itemsPerPage={8}
-            onPageChange={handlePageChangeIT}
-          />
-        </div>
-
-        <hr />
-        {/* divider */}
-
-        <h3 className=" px-5 mx-5">English Courses</h3>
-        <div className="py-3 m-0 w-100">
-          <div className="d-flex flex-wrap gap-5 w-100 justify-content-center">
-            {renderItemsForPage(yourArrayOfObjects, currentPageEng, 4)}
-          </div>
-          <CustomPagination
-            totalItems={yourArrayOfObjects.length}
-            itemsPerPage={4}
-            onPageChange={handlePageChangeEng}
-          />
-        </div>
-
-        <hr />
-        {/* divider */}
-
-        <h3 className=" px-5 mx-5">Japanese Courses</h3>
-        <div className="py-3 m-0 w-100">
-          <div className="d-flex flex-wrap gap-5 w-100 justify-content-center">
-            {renderItemsForPage(yourArrayOfObjects, currentPageJp, 4)}
-          </div>
-          <CustomPagination
-            totalItems={yourArrayOfObjects.length}
-            itemsPerPage={4}
-            onPageChange={handlePageChangeJp}
-          />
-        </div>
-
-        <hr />
-        {/* divider */}
-
-        
-
-        <h3 className=" px-5 mx-5">Popular Posts</h3>
-        <div className="py-3 m-0 w-100">
-          <div className="d-flex flex-wrap gap-5 w-100 justify-content-center">
-            {renderItemsForPage(yourArrayOfObjects, currentPagePosts, 4)}
-          </div>
-          <CustomPagination
-            totalItems={yourArrayOfObjects.length}
-            itemsPerPage={4}
-            onPageChange={handlePageChangePosts}
-          />
-        </div>
-        
+        ))}
       </div>
-
-      
-    </>
+    </div>
   );
 }
+
