@@ -18,7 +18,7 @@ public class RefreshToken {
     @Column(name="user_id")
     private String userId;
 
-    @OneToOne
+    @OneToOne (fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;

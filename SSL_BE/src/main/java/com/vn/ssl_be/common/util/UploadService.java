@@ -36,7 +36,7 @@ public class UploadService {
         try {
             FileCopyUtils.copy(fileUpload.getBytes(),new File(uploadPath+File.separator+fileName));
             String filePath = uploadPath+File.separator+fileName;
-            String imageUrlFirebase = uploadFileFromServerToFirebase(filePath);
+            String imageUrlFirebase = uploadFileFromServerToFirebase(filePath, fileUpload.getContentType());
             File fileImage = new File(filePath);
             if (fileImage.exists()){
                 fileImage.delete();
@@ -47,7 +47,7 @@ public class UploadService {
         }
     }
 
-    private String uploadFileFromServerToFirebase(String filePath){
+    private String uploadFileFromServerToFirebase(String filePath, String contentType){
         Path localPath = Paths.get(filePath); // lấy ra đối tượng Paths của ảnh vừa upload lên server
         String fileName = localPath.getFileName().toString(); // lấy ra tên file upload
         BlobId blobId = BlobId.of(bucketName, fileName); // tạo file trên storage bằng tên và bucketname chỉ đinh

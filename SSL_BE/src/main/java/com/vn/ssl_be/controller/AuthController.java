@@ -1,5 +1,6 @@
 package com.vn.ssl_be.controller;
 
+import com.vn.ssl_be.common.exception.DomainException;
 import com.vn.ssl_be.domain.security.dto.request.LoginRequest;
 import com.vn.ssl_be.domain.security.dto.request.SignupRequest;
 import com.vn.ssl_be.domain.security.dto.request.TokenRefreshRequest;
@@ -56,4 +57,13 @@ public class AuthController {
                         "Refresh token is not in database!"));
     }
 
+    @DeleteMapping("/logout")
+    public ResponseEntity<?> logout(@Valid @RequestBody TokenRefreshRequest logoutRequest) {
+        RefreshToken refreshToken = refreshTokenService.findByToken(logoutRequest.getRefreshToken())
+                .orElseThrow(() -> DomainException.notFound("RefreshToken " + logoutRequest.getRefreshToken()));
+
+        refreshTokenService.deleteToken(refreshToken);
+
+        return ResponseEntity.ok("Logout success fully!");
+    }
 }

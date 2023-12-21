@@ -43,6 +43,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course save(CourseRequest courseRequest) {
         String imageCourseUrl;
+
         if(courseRequest.getCourseId()==null){
             courseRequest.setIsActived(true);
             imageCourseUrl = null;
@@ -53,6 +54,7 @@ public class CourseServiceImpl implements CourseService {
         if (courseRequest.getFileImageCourse()!=null) {
             imageCourseUrl = (uploadService.uploadFile(courseRequest.getFileImageCourse()));
         }
+
         Course course = modelMapper.map(courseRequest, Course.class);
         course.setImageCourseUrl(imageCourseUrl);
 

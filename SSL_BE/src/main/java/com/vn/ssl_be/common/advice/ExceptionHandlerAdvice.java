@@ -18,6 +18,8 @@ public class ExceptionHandlerAdvice {
         e.getBindingResult().getFieldErrors()
                 .forEach(err -> map.put(err.getField(), err.getDefaultMessage())
         );
+
+
         return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
     }
 }
