@@ -1,7 +1,7 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
-import com.vn.ssl_be.domain.course.dto.CategoryRequest;
-import com.vn.ssl_be.domain.course.dto.CategoryResponse;
+import com.vn.ssl_be.domain.course.dto.request.CategoryRequest;
+import com.vn.ssl_be.domain.course.dto.response.CategoryResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.service.CategoryService;
 import com.vn.ssl_be.domain.course.model.Category;
@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllCategoryByNameOrDescription(String keyword) throws CourseException {
         List<Category> searchResults = categoryRepository.findAllByCategoryNameContainingOrDescriptionContaining(keyword, keyword);
         if (searchResults.isEmpty()) {
-            throw CourseException.notFound("No courses found matching the search criteria.");
+            throw CourseException.notFound("No categories found matching the search criteria.");
         }
         return searchResults;
     }

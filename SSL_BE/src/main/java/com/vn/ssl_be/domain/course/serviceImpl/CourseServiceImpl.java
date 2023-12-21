@@ -1,8 +1,8 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
 import com.vn.ssl_be.common.util.UploadService;
-import com.vn.ssl_be.domain.course.dto.CourseRequest;
-import com.vn.ssl_be.domain.course.dto.CourseResponse;
+import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
+import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
