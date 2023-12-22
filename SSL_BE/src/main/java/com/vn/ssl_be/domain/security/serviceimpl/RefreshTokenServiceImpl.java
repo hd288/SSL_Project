@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.security.serviceimpl;
 
+import com.vn.ssl_be.domain.security.dto.request.TokenRefreshRequest;
 import com.vn.ssl_be.domain.security.exception.TokenRefreshException;
 import com.vn.ssl_be.domain.security.model.RefreshToken;
 import com.vn.ssl_be.domain.security.model.User;
@@ -61,8 +62,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
 
     @Override
-    public void deleteToken(RefreshToken refreshToken) {
-        refreshTokenRepository.delete(refreshToken);
+    public void deleteToken(TokenRefreshRequest refreshToken) {
+        refreshTokenRepository.deleteByToken(refreshToken.getRefreshToken());
     }
 
     @Transactional

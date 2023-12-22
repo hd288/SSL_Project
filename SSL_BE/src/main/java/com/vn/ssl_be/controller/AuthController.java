@@ -62,7 +62,17 @@ public class AuthController {
         RefreshToken refreshToken = refreshTokenService.findByToken(logoutRequest.getRefreshToken())
                 .orElseThrow(() -> DomainException.notFound("RefreshToken " + logoutRequest.getRefreshToken()));
 
-        refreshTokenService.deleteToken(refreshToken);
+//        refreshTokenService.deleteToken(refreshToken);
+
+        return ResponseEntity.ok("Logout success fully!");
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutV1(@Valid @RequestBody TokenRefreshRequest logoutRequest) {
+       refreshTokenService.findByToken(logoutRequest.getRefreshToken())
+                .orElseThrow(() -> DomainException.notFound("RefreshToken " + logoutRequest.getRefreshToken()));
+
+       refreshTokenService.deleteToken(logoutRequest);
 
         return ResponseEntity.ok("Logout success fully!");
     }

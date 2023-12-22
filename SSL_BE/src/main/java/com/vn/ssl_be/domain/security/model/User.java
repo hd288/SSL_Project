@@ -1,4 +1,5 @@
 package com.vn.ssl_be.domain.security.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ssl_be.domain.mentor.model.Mentor;
 import com.vn.ssl_be.domain.student.model.Student;
 import jakarta.persistence.*;
@@ -57,8 +58,9 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Student student;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private RefreshToken refreshToken;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private RefreshToken refreshToken;
 
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)

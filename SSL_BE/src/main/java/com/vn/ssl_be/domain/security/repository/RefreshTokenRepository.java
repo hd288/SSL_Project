@@ -7,14 +7,19 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, String> {
     Optional<RefreshToken> findByToken(String token);
-    @Query(value = "DELETE FROM RefreshToken r WHERE r.token = :token")
-    void deleteAllByToken(@Param("token") String refreshToken);
+
+    @Modifying
+    @Query(value = "DELETE FROM refresh_token where token = ?1",nativeQuery = true)
+    @Transactional
+    void deleteByToken(String refreshToken);
+
     @Modifying
     int deleteByUser(User user);
 }

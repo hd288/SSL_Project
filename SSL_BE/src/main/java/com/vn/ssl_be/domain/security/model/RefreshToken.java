@@ -1,14 +1,14 @@
 package com.vn.ssl_be.domain.security.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.Instant;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,4 +29,8 @@ public class RefreshToken {
     @Column(nullable = false)
     private Instant expiryDate;
 
+    @Override
+    public String toString() {
+        return "";
+    }
 }

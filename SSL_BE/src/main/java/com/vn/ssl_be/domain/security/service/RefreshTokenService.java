@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.security.service;
 
+import com.vn.ssl_be.domain.security.dto.request.TokenRefreshRequest;
 import com.vn.ssl_be.domain.security.model.RefreshToken;
 import com.vn.ssl_be.domain.security.model.User;
 
@@ -10,6 +11,6 @@ public interface RefreshTokenService {
     RefreshToken createRefreshToken(User user);
     RefreshToken verifyExpiration(RefreshToken refreshToken);
     void save(RefreshToken refreshToken);
-    void deleteToken(RefreshToken refreshToken);
+    void deleteToken(TokenRefreshRequest refreshToken);
     int deleteByUserId(String userId);
 }
