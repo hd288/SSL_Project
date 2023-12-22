@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
+import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.common.util.UploadService;
 import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
 import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
@@ -13,6 +14,8 @@ import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -30,8 +33,14 @@ public class CourseServiceImpl implements CourseService {
 
     /* 4 Method Basic */
     @Override
-    public List<Course> findAll() {
-        return courseRepository.findAll();
+    public PageResponseDto<Course> findAll(Pageable pageable) {
+        Page<Course> page = courseRepository.findAll(pageable);
+        return PageResponseDto.<Course>builder()
+                .data(page.getContent())
+                .totalPage(page.getTotalPages())
+                .pageNumber(page.getTotalPages())
+                .size(page.getSize())
+                .sort(page.getSort().toString()).build();
     }
 
     @Override
@@ -43,14 +52,14 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course save(CourseRequest courseRequest) {
         String imageCourseUrl;
-        if(courseRequest.getCourseId()==null){
+        if (courseRequest.getCourseId() == null) {
             courseRequest.setIsActived(true);
             imageCourseUrl = null;
-        }else {
+        } else {
             imageCourseUrl = courseRepository.findById(courseRequest.getCourseId()).orElse(new Course()).getImageCourseUrl();
         }
 
-        if (courseRequest.getFileImageCourse()!=null) {
+        if (courseRequest.getFileImageCourse() != null) {
             imageCourseUrl = (uploadService.uploadFile(courseRequest.getFileImageCourse()));
         }
         Course course = modelMapper.map(courseRequest, Course.class);
@@ -69,33 +78,63 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.deleteById(id);
     }
 
-    @Override
-    public List<Course> findAllCourseByNameOrDescription(String keyword) {
-        List<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword);
-        if (searchResults.isEmpty()) {
-            throw CourseException.notFound("No courses found matching the search criteria.");
-        };
-        return searchResults;
-    }
-
     /*************************************************************/
     /* Method Advance */
+
     @Override
-    public List<CourseResponse> findAllCourseForUser() {
-        return findAll().stream()
-                .map(course -> modelMapper.map(course, CourseResponse.class))
-                .collect(Collectors.toList());
+    public PageResponseDto<Course> findAllCourseByNameOrDescription(String keyword, Pageable pageable) {
+        Page<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword, pageable);
+        if (searchResults.getContent().isEmpty()) {
+            throw CourseException.notFound("No courses found matching the search criteria.");
+        };
+
+        return PageResponseDto.<Course>builder()
+                .data(searchResults.getContent())
+                .totalPage(searchResults.getTotalPages())
+                .pageNumber(searchResults.getNumber())
+                .size(searchResults.getSize())
+                .sort(searchResults.getSort().toString()).build();
     }
 
     @Override
-    public List<CourseResponse> findAllCourseByNameOrDescriptionForUser(String keyword) throws CourseException {
-        List<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword);
-        if (searchResults.isEmpty()) {
+    public PageResponseDto<CourseResponse> findAllCourseForUser(Pageable pageable) {
+        Page<Course> page = courseRepository.findAll(pageable);
+
+        List<CourseResponse> list = page.getContent().stream()
+                .map(course -> {
+                    CourseResponse courseResponse = modelMapper.map(course, CourseResponse.class);
+                    courseResponse.setCategoryName(course.getCategory().getCategoryName());
+                    return courseResponse;
+                }).collect(Collectors.toList());
+
+        return PageResponseDto.<CourseResponse>builder()
+                .data(list)
+                .totalPage(page.getTotalPages())
+                .pageNumber(page.getNumber())
+                .size(page.getSize())
+                .sort(page.getSort().toString()).build();
+
+    }
+
+    @Override
+    public PageResponseDto<CourseResponse> findAllCourseByNameOrDescriptionForUser(String keyword, Pageable pageable) throws CourseException {
+        Page<Course> searchResults = courseRepository.findAllByCourseNameContainingOrCourseDescContaining(keyword, keyword, pageable);
+        if (searchResults.getContent().isEmpty()) {
             throw CourseException.notFound("No courses found matching the search criteria.");
         }
-        return searchResults.stream()
-                .map(course -> modelMapper.map(course, CourseResponse.class))
-                .collect(Collectors.toList());
+        List<CourseResponse> list = searchResults.getContent().stream()
+                .map(course -> {
+                    CourseResponse courseResponse = modelMapper.map(course, CourseResponse.class);
+                    courseResponse.setCategoryName(course.getCategory().getCategoryName());
+                    return courseResponse;
+                }).collect(Collectors.toList());
+
+        return PageResponseDto.<CourseResponse>builder()
+                .data(list)
+                .totalPage(searchResults.getTotalPages())
+                .pageNumber(searchResults.getNumber())
+                .size(searchResults.getSize())
+                .sort(searchResults.getSort().toString()).build();
     }
 
 
@@ -114,19 +153,19 @@ public class CourseServiceImpl implements CourseService {
 
     /*************************************************************/
     /* Create your own mapper method*/ /* But now we are supported by Modermapper*/
-    private List<CourseResponse> transferData(List<Course> courses) {
-        return courses.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
-
-    private CourseResponse convertToDto(Course course) {
-        return new CourseResponse(
-                course.getCourseId(),
-                course.getCourseName(),
-                course.getDuration(),
-                course.getCategory(),
-                course.getImageCourseUrl()
-        );
-    }
+//    private List<CourseResponse> transferData(List<Course> courses) {
+//        return courses.stream()
+//                .map(this::convertToDto)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private CourseResponse convertToDto(Course course) {
+//        return new CourseResponse(
+//                course.getCourseId(),
+//                course.getCourseName(),
+//                course.getDuration(),
+//                course.getCategory(),
+//                course.getImageCourseUrl()
+//        );
+//    }
 }

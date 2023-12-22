@@ -11,5 +11,5 @@ public interface RefreshTokenService {
     RefreshToken createRefreshToken(User user);
     RefreshToken verifyExpiration(RefreshToken refreshToken);
     void save(RefreshToken refreshToken);
-    int deleteByUserId(String userId);
+    void deleteByUserId(String userId);
 }

@@ -1,13 +1,20 @@
 package com.vn.ssl_be.domain.student.serviceimpl;
 
+import com.vn.ssl_be.common.exception.DomainException;
+import com.vn.ssl_be.common.util.UploadService;
 import com.vn.ssl_be.domain.security.model.User;
-import com.vn.ssl_be.domain.student.dto.StudentProfileResponse;
+import com.vn.ssl_be.domain.security.repository.UserRepository;
+import com.vn.ssl_be.domain.security.serviceimpl.UserDetailsImpl;
+import com.vn.ssl_be.domain.student.dto.StudentRequest;
+import com.vn.ssl_be.domain.student.dto.StudentResponse;
 import com.vn.ssl_be.domain.student.exception.StudentException;
 import com.vn.ssl_be.domain.student.model.Student;
 import com.vn.ssl_be.domain.student.repository.StudentRepository;
 import com.vn.ssl_be.domain.student.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +24,8 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final ModelMapper mapper;
+    private final UploadService uploadService;
+    private final UserRepository userRepository;
 
     @Override
     public Student createStudent(User user) {
@@ -46,8 +55,23 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentProfileResponse getStudentProfile(String userId) {
-        Student student = findById(userId);
-        return mapper.map(student.getUser(), StudentProfileResponse.class);
+    public StudentResponse getStudentProfile() {
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername()).orElseThrow(() -> DomainException.notFound(userDetails.getUsername()));
+        return mapper.map(user, StudentResponse.class);
+    }
+
+    @Override
+    public StudentResponse updateStudentProfile(StudentRequest studentRequest) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername()).orElseThrow(() -> DomainException.notFound(userDetails.getUsername()));
+
+        mapper.map(studentRequest, user);
+        if(studentRequest.getFileAvatar() != null){
+            user.setImage(uploadService.uploadFile(studentRequest.getFileAvatar()));
+        }
+        userRepository.save(user);
+
+        return mapper.map(user, StudentResponse.class );
     }
 }

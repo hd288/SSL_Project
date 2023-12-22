@@ -1,5 +1,6 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
+import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.domain.course.dto.request.CategoryRequest;
 import com.vn.ssl_be.domain.course.dto.response.CategoryResponse;
 import com.vn.ssl_be.domain.course.exception.CourseException;
@@ -9,6 +10,8 @@ import com.vn.ssl_be.domain.course.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,8 +28,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     /* 4 Method Basic */
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public PageResponseDto<Category> findAll(Pageable pageable) {
+
+        Page<Category> page = categoryRepository.findAll(pageable);
+        return PageResponseDto.<Category>builder()
+                .data(page.getContent())
+                .totalPage(page.getTotalPages())
+                .pageNumber(page.getNumber())
+                .size(page.getSize())
+                .sort(page.getSort().toString()).build();
     }
 
     @Override

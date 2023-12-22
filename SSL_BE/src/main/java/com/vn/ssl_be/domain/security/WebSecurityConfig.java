@@ -31,10 +31,6 @@ public class WebSecurityConfig {
     @Autowired
     private  JwtAuthEntryPoint unauthorizedHandler;
     @Bean
-    public Authentication authentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-    @Bean
     public AuthTokenFilter authTokenFilter() {
         return new AuthTokenFilter();
     }

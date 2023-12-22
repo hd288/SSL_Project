@@ -2,6 +2,8 @@ package com.vn.ssl_be.domain.course.repository;
 
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
         /* Logic CourseWebUser */
         List<Course> findAllByCategory(Category category);
-        List<Course> findAllByCourseNameContainingOrCourseDescContaining(String courseName, String courseDesc);
+        Page<Course> findAllByCourseNameContainingOrCourseDescContaining(String courseName, String courseDesc, Pageable pageable);
 
 }

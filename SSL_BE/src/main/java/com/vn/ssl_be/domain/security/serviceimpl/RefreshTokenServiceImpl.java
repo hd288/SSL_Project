@@ -60,7 +60,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Transactional
-    public int deleteByUserId(String userId) {
-        return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
+    public void deleteByUserId(String userId) {
+        refreshTokenRepository.deleteById(userId);
     }
 }
