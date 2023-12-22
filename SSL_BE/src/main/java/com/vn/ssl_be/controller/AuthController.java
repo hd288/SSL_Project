@@ -1,5 +1,7 @@
 package com.vn.ssl_be.controller;
 
+import com.google.cloud.storage.Acl;
+import com.vn.ssl_be.common.exception.DomainException;
 import com.vn.ssl_be.domain.security.dto.request.LoginRequest;
 import com.vn.ssl_be.domain.security.dto.request.SignupRequest;
 import com.vn.ssl_be.domain.security.dto.request.TokenRefreshRequest;
@@ -56,9 +58,16 @@ public class AuthController {
                         "Refresh token is not in database!"));
     }
 
-    @PostMapping("/logout/{userId}")
-    public ResponseEntity<String> logoutUser(@PathVariable String userId ) {
-        refreshTokenService.deleteByUserId(userId);
+
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(@Valid @RequestBody TokenRefreshRequest tokenRefreshRequest){
+        RefreshToken refreshToken = refreshTokenService.findByToken(tokenRefreshRequest.getRefreshToken())
+                .orElseThrow(() -> DomainException.notFound(tokenRefreshRequest.getRefreshToken()));
+
+        refreshTokenService.deleteByToken(refreshToken);
+
+//        refreshTokenService.deleteByUserId(userId);
         return ResponseEntity.ok()
                 .body("Logout Successfully");
     }
