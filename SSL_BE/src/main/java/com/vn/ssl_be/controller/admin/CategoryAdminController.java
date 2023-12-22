@@ -1,5 +1,6 @@
 package com.vn.ssl_be.controller.admin;
 
+import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.domain.course.dto.request.CategoryRequest;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
@@ -7,6 +8,7 @@ import com.vn.ssl_be.domain.course.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,8 @@ public class CategoryAdminController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories() {
-        return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
+    public ResponseEntity<PageResponseDto<Category>> getCategories(Pageable pageable) {
+        return new ResponseEntity<>(categoryService.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{categoryId}")
@@ -30,7 +32,7 @@ public class CategoryAdminController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Category>> getCategoriesByNameOrDesc(@RequestParam("search") String keyword)  {
+    public ResponseEntity<List<Category>> getCategoriesByNameOrDesc(@RequestParam("query") String keyword)  {
         return new ResponseEntity<>(categoryService.findAllCategoryByNameOrDescription(keyword), HttpStatus.OK);
     }
 

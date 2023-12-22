@@ -32,7 +32,7 @@ public class LessonAdminController {
         return new ResponseEntity<>(lessonService.findAllLessonByCourseId(courseId), HttpStatus.OK);
     }
     @GetMapping("/search")
-    public ResponseEntity<List<Lesson>> getLessonsByTitle(@RequestParam("search") String keyword)  {
+    public ResponseEntity<List<Lesson>> getLessonsByTitle(@RequestParam("query") String keyword)  {
         return new ResponseEntity<>(lessonService.findAllLessonByCourseId(keyword), HttpStatus.OK);
     }
 

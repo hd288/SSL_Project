@@ -1,5 +1,6 @@
 package com.vn.ssl_be.controller.admin;
 
+import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Course;
@@ -7,6 +8,7 @@ import com.vn.ssl_be.domain.course.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,8 @@ public class CourseAdminController {
     private final CourseService courseService;
 
     @GetMapping
-    public ResponseEntity<List<Course>> getCourses() {
-        return new ResponseEntity<>(courseService.findAll(), HttpStatus.OK);
+    public ResponseEntity<PageResponseDto<Course>> getCourses(Pageable pageable) {
+        return new ResponseEntity<>(courseService.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{courseId}")
@@ -31,8 +33,8 @@ public class CourseAdminController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Course>> getCoursesByNameOrDesc(@RequestParam("search") String keyword)  {
-        return new ResponseEntity<>(courseService.findAllCourseByNameOrDescription(keyword), HttpStatus.OK);
+    public ResponseEntity<PageResponseDto<Course>> getCoursesByNameOrDesc(@RequestParam("query") String keyword, Pageable pageable)  {
+        return new ResponseEntity<>(courseService.findAllCourseByNameOrDescription(keyword,pageable), HttpStatus.OK);
     }
 
     @PostMapping
