@@ -1,12 +1,7 @@
-import React from 'react'
+import React from "react";
+import Error from "../components/elements/Error";
 
 export default function Blogs() {
-  console.log(import.meta.env.VITE_API_URL)
 
-  return (
-    <div>
-      Blogs
-      
-    </div>
-  )
+  return <div><Error /></div>;
 }

@@ -4,10 +4,12 @@ import Modal from "react-bootstrap/Modal";
 
 
 export default function MyModal({
+  buttonIcon,
   buttonText,
   modalTitle,
   modalBodyComponent,
   buttonVariant,
+  fullscreen,
 }) {
   const [show, setShow] = useState(false);
 
@@ -17,10 +19,10 @@ export default function MyModal({
   return (
     <>
       <Button onClick={handleShow} variant={buttonVariant}>
-        {buttonText}
+      {buttonIcon} {buttonText}
       </Button>
 
-      <Modal show={show} onHide={handleClose} size="xl">
+      <Modal show={show} fullscreen={fullscreen} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title >{modalTitle}</Modal.Title>
         </Modal.Header>

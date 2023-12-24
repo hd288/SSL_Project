@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import ToastComponent from "../components/elements/Toast";
@@ -136,4 +135,3 @@ export default function Home() {
     </div>
   );
 }
-

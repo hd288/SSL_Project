@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 export default function MainNav() {
   return (
-    <Navbar className="p-0 m-0 " sticky="top" bg="light" data-bs-theme="light">
+    <Navbar className="p-0 m-0 " sticky="top" bg="none" data-bs-theme="light">
       <div className="d-flex flex-row justify-content-center align-items-center">
         <Nav className="me-auto d-flex flex-column justify-content-center mx-2 gap-3">
           <Link to="/" className="text-decoration-none">
