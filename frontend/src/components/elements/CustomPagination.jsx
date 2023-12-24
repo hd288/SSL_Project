@@ -1,12 +1,17 @@
 // CustomPagination.jsx
 import React, { useState } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
+import { useDispatch, useSelector } from "react-redux";
+import { courseActions } from "@store/courseSlice";
 
 const CustomPagination = ({ totalItems, itemsPerPage, onPageChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const dispatch =  useDispatch();
+  
 
   const handlePageChange = (pageNumber) => {
+    dispatch(courseActions.getCoursesByPage(pageNumber))
     setCurrentPage(pageNumber);
     onPageChange(pageNumber, itemsPerPage);
   };

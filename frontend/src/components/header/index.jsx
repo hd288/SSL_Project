@@ -4,7 +4,22 @@ import MyModal from "../elements/MyModal";
 import Login from "../../pages/Login&Signup/Login";
 import Signup from "../../pages/Login&Signup/Signup";
 
+import Profile from "../profile";
+
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function Header() {
+  const dispatch = useDispatch()
+  const isLogin = useSelector(store => store.auth.isLogin)
+ 
+
+  useEffect(() => {
+
+  }, [isLogin])
+
+
+
   return (
     <div className="py-3 mx-5 d-flex justify-content-between align-items-center border-bottom py-2">
       <Container className="p-0 m-0 d-flex flex-row justify-content-start align-items-center gap-3">
@@ -22,20 +37,27 @@ export default function Header() {
           placeholder="Search for courses, posts, videos..."
         />
       </Container>
+   
       <Container className="p-0 m-0 d-flex flex-row justify-content-end align-items-center gap-3">
-        <MyModal
-          buttonText="Login"
-          modalTitle="Login Form"
-          modalBodyComponent={<Login />}
-          buttonVariant="outline-danger"
-        />
-        <MyModal
-          buttonText="Sign up"
-          modalTitle="Sign up Form"
-          modalBodyComponent={<Signup />}
-          buttonVariant="danger"
-        />
-      </Container>
+        {
+        isLogin ? 
+        <Profile/> :
+        <div className="p-0 m-0 d-flex flex-row justify-content-end align-items-center gap-3">
+          <MyModal
+            buttonText="Login"
+            modalTitle="Login Form"
+            modalBodyComponent={<Login />}
+            buttonVariant="outline-danger"
+          />
+          <MyModal
+            buttonText="Sign up"
+            modalTitle="Sign up Form"
+            modalBodyComponent={<Signup />}
+            buttonVariant="danger"
+          />
+        </div>
+          }
+       </Container>
     </div>
   );
 }

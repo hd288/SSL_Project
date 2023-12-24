@@ -1,11 +1,19 @@
-import loginCover from "@assets/login-signup1.gif";
 import React from "react";
+import loginCover from "@assets/login-signup1.gif";
+
 import { Col, Image, Row, Form, Button, InputGroup } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import {authActions} from '@store/authSlice';
+
 import * as formik from "formik";
 import * as yup from "yup";
 
+
 export default function Signup() {
+  const dispatch =  useDispatch();
   const { Formik } = formik;
+  const {errorMessage} = useSelector((store) => store.auth)
+
 
   const schema = yup.object().shape({
     firstName: yup.string().required(),
@@ -25,6 +33,11 @@ export default function Signup() {
     terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
   });
 
+
+  const handleRegister = async (values) =>{
+    dispatch(authActions.signUp(values))
+  }
+
   return (
     <div>
       <Row>
@@ -38,7 +51,6 @@ export default function Signup() {
         <Col lg={6} className="d-flex flex-column justify-content-center p-5">
           <Formik
             validationSchema={schema}
-            onSubmit={console.log}
             initialValues={{
               firstName: "",
               lastName: "",
@@ -47,6 +59,11 @@ export default function Signup() {
               confirmPassword: "",
               terms: false,
             }}
+            onSubmit={(values, { resetForm }) => {
+              handleRegister(values)
+              resetForm();
+            }}
+
           >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
               <Form
@@ -58,16 +75,46 @@ export default function Signup() {
                   <Form.Group as={Col} controlId="validationFormik01">
                     <Form.Label>First name</Form.Label>
                     <Form.Control
+                      type="firstName"
+                      placeholder="First Name"
+                      name="firstName"
+                      value={values.firstName}
+                      onChange={handleChange}
+                      isInvalid={!!errors.firstName}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {"Please enter your first name!"}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  
+                  {/* Last Name */}
+                  <Form.Group as={Col} controlId="validationFormik02">
+                    <Form.Label>First name</Form.Label>
+                    <Form.Control
+                      type="lastName"
+                      placeholder="Last Name"
+                      name="lastName"
+                      value={values.lastName}
+                      onChange={handleChange}
+                      isInvalid={!!errors.lastName}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {"Please enter your last name!"}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  {/* <Form.Group as={Col} controlId="validationFormik01">
+                    <Form.Label>First name</Form.Label>
+                    <Form.Control
                       type="text"
                       placeholder="First Name"
                       name="firstName"
                       value={values.firstName}
                       onChange={handleChange}
-                      isValid={touched.firstName && !errors.firstName}
+                      isValid={!!errors.firstName}
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="validationFormik02">
+                    <Form.Control.Feedback type="invalid"> {"Please enter your first name!"}</Form.Control.Feedback>
+                  </Form.Group> */}
+                  {/* <Form.Group as={Col} controlId="validationFormik02">
                     <Form.Label>Last name</Form.Label>
                     <Form.Control
                       type="text"
@@ -75,10 +122,10 @@ export default function Signup() {
                       name="lastName"
                       value={values.lastName}
                       onChange={handleChange}
-                      isValid={touched.lastName && !errors.lastName}
+                      isValid={!errors.lastName}
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  </Form.Group>
+                    <Form.Control.Feedback type="invalid"> {"Please enter your last name!"}</Form.Control.Feedback>
+                  </Form.Group> */}
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="validationFormik03">
@@ -94,6 +141,9 @@ export default function Signup() {
                     <Form.Control.Feedback type="invalid">
                       {"Please enter your email!"}
                     </Form.Control.Feedback>
+                    {
+                      errorMessage.length > 0 ? <p className="text-danger">{errorMessage}</p> : ''
+                    }
                   </Form.Group>
                 </Row>
                 <Row>

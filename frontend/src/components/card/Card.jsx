@@ -30,8 +30,8 @@ export default function Card(props) {
   return (
     <div>
       <div
-        key={props.id}
-        className="anchor-overlay d-flex flex-column justify-content-center align-items-start position-relative"
+        key={props.courseName}
+        className="text-center anchor-overlay d-flex flex-column justify-content-center align-items-start position-relative"
       >
         <div
           className="h-100 rounded d-flex justify-content-center align-items-center text-light px-2"
@@ -41,7 +41,7 @@ export default function Card(props) {
             background: getRandomBgImg(),
           }}
         >
-          {props.title} 
+          {props.courseTitle} 
         </div>
         <div className=" position-absolute w-100 h-100  align-items-center justify-content-center">
           <a
