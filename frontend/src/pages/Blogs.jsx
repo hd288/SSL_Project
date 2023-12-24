@@ -4,7 +4,6 @@ import Error from "../components/elements/Error";
 export default function Blogs() {
   return (
     <div>
-      Blogs
       <Error />
     </div>
   );

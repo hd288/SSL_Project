@@ -17,10 +17,10 @@ const signIn =  createAsyncThunk(
             const  response = await api.auth.login(loginRequest);
             return await response.data;
         }catch (error) {
-
+ 
             return error.response.data;
         }
-
+       
     }
 )
 
@@ -33,7 +33,7 @@ const signUp =  createAsyncThunk(
         }catch (error) {
             return rejectWithValue(error.response.data);
         }
-
+       
     }
 )
 
@@ -47,14 +47,12 @@ const logout =  createAsyncThunk(
         }catch (error) {
             return rejectWithValue(error.response.data);
         }
-
+       
     }
 )
 
 //InitialState
 const initialState ={
-    userInfo: {},
-    // loading: 'idle' | 'pending' | 'succeeded' | 'failed'
     user: userInfo.length > 0 ? decodeValue(userInfo) : {} ,
     isLogin: userInfo.length > 0 ? true : false,
     isRegister: false,
@@ -63,31 +61,16 @@ const initialState ={
         refreshToken: userInfo.length > 0 ? decodeValue(userInfo).refreshToken : {} 
     },
     errorMessage: ''
-
+        
 }
 
 const authSlice =  createSlice({
     name: "auth",
     initialState,
     reducers: {
-        // standard reducer logic, with auto-generated action types per reducer
 
     },
     extraReducers: (builder) => {
-         // Login
-        builder.addCase(login.fulfilled, (state, {payload}) => {
-            state.userInfo = payload;
-            console.log(payload)
-        })
-
-
-        // Register
-        // builder
-        //     .addCase(register.fulfilled, (state, action) => {
-        //     // state.isCreated = true;
-        //     // state.isLoggedIn = true;
-        //     // localStorage.setItem("token", encodeValue(action.payload));
-        //     });
         // Login
         builder
             .addCase(signIn.fulfilled, (state, action) => {
@@ -98,7 +81,7 @@ const authSlice =  createSlice({
 
                     let cookieValue = encodeValue(state.userInfo)
                     setCookie('u', cookieValue, action.payload.expiryDate)
-
+                   
                     state.isLogin = true
                 }else {
                     state.errorMessage = action.payload.message
@@ -118,7 +101,7 @@ const authSlice =  createSlice({
            .addCase(signUp.rejected, (state, action) => {
             console.log(action.payload.validateMessage.email);
                 state.errorMessage = action.payload.validateMessage.email
-
+            
            })
 
              // register
@@ -128,7 +111,7 @@ const authSlice =  createSlice({
                 deleteCookie('u'),
                 deleteCookie('ut'),
                 state.isLogin = false
-
+            
              })
              .addCase(logout.rejected, (state, action) => {
                 console.log(action.payload);
@@ -136,9 +119,6 @@ const authSlice =  createSlice({
     }
 })
 
-
-// authSlice
-export const authActions = {...authSlice.actions, login};
 
 // // authSlice
 export const authActions = { ...authSlice.actions, signIn, signUp, logout }
