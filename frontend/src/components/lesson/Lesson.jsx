@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
-import ReactPlayer from "react-player";
+// import ReactPlayer from "react-player";
 import MyModal from "../elements/MyModal";
 import Error from "../elements/Error";
 import { BsPenFill, BsChatTextFill } from "react-icons/bs";
 import MyOffCanvas from "../elements/MyOffCanvas";
-import LessonDetails from "./LessonDetails";
+// import LessonDetails from "./LessonDetails";
 
 export default function Lesson() {
   const [playTime, setPlayTime] = useState(0);
