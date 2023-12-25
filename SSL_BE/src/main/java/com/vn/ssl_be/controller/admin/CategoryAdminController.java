@@ -21,6 +21,7 @@ import java.util.List;
 public class CategoryAdminController {
     private final CategoryService categoryService;
 
+
     @GetMapping
     public ResponseEntity<PageResponseDto<Category>> getCategories(Pageable pageable) {
         return new ResponseEntity<>(categoryService.findAll(pageable), HttpStatus.OK);
