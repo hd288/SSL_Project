@@ -1,13 +1,14 @@
-import { useFormik } from "formik";
 import React from "react";
-
-import { useForm } from "react-hook-form";
+import Course from "../components/course/Course";
 
 export default function Careers() {
 
   return (
-    <div>
-
-    </div>
+    <>
+      <div>
+        {/*  e để tạm cái component course ở đây để build thôi nhé a Đức */}
+        <Course />
+      </div>
+    </>
   );
 }

@@ -33,7 +33,7 @@ const CustomPagination = ({ totalItems, itemsPerPage, onPageChange }) => {
   };
 
   return (
-    <Pagination className='d-flex flex-row justify-content-center pt-4'>
+    <Pagination className='d-flex flex-row justify-content-start  pt-4'>
       <Pagination.Prev
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}

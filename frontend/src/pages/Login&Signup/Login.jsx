@@ -133,7 +133,7 @@ export default function Login() {
        
                    <Button
                      variant="outline-primary"
-                     className="w-100 align-self-center"
+                     className="w-75 align-self-center"
                      type="submit"
                    >
                      Login

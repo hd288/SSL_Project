@@ -191,7 +191,7 @@ export default function Signup() {
                 </Form.Group>
                 <Button
                   variant="primary"
-                  className="my-3 w-100 align-self-center"
+                  className="my-3 w-75 align-self-center"
                   type="submit"
                 >
                   Sign Up
