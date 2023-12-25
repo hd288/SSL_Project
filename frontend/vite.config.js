@@ -20,6 +20,7 @@ export default defineConfig({
       // "@api": `${path.resolve(__dirname, "./src/api/")}`,
       "@store" :fileURLToPath(new URL ("./src/store/slices", import.meta.url)),
       "@api": fileURLToPath(new URL ("./src/api", import.meta.url)),
+      "@js": fileURLToPath(new URL ("./src/js/common.js", import.meta.url)),
     },
   },
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import ToastComponent from "../components/elements/Toast";
-import { Container, Image } from "react-bootstrap";
+// import { Container, Image } from "react-bootstrap";
 import SingleCarousel from "../components/carousels/SingleCarousel";
 import Card from "../components/card/Card";
 import CustomPagination from "../components/elements/CustomPagination";
@@ -163,3 +163,4 @@ export default function Home() {
     </div>
   );
 }
+

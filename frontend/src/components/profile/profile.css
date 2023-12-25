@@ -1,0 +1,95 @@
+a {
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    position: relative;
+    top: 0;
+    padding-right: 4px;
+}
+
+.profile-container img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 5px;
+    border-radius: 100%;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-menu {
+    cursor: pointer;
+    font-size: 20px;
+    color: #dfd9e3;
+}
+
+.profile-menu-list {
+    font-size: 14px;
+    position: absolute;
+    /* border: 1px solid rgb(196, 196, 196); */
+    right: 0;
+    background-color: #dfd9e3;
+    z-index: 1;
+    padding: 5px 5px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.profile-menu-list li {
+    font-size: 16px;
+}
+
+.profile-menu-list a {
+    display: block;
+    color: #333;
+    width: 100%;
+    font-size: 14px;
+}
+
+.profile-menu-list li:hover a {
+    text-decoration: underline;
+    color: blue;
+}
+
+
+.profile-menu-list::before {
+    position: absolute;
+    /* 50%とは、現elementを含むparent_elementのサイズ */
+    top: -8px;
+    right: 2px;
+    content: "";
+    border: 9px solid;
+    transform: translateY(calc(-50% - 1px));
+    border-color:  transparent  transparent #dfd9e3 transparent;
+   
+}
+
+.btn-logout {
+    border: none;
+    background-color: #dfd9e3;
+    color: #333;
+    font-size: 14px;
+}
+
+.btn-logout:hover {
+    text-decoration: underline;
+    color: blue;
+    
+}

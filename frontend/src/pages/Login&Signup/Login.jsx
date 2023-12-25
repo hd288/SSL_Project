@@ -8,7 +8,7 @@ import {
   faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, ErrorMessage } from "formik";
 import { authActions } from "@store/authSlice";
 
@@ -17,7 +17,6 @@ import * as formik from "formik";
 // import * as yup from "yup";
 
 export default function Login() {
-  const [loginInfo, setLoginInfo] = useState([]);
   const dispatch = useDispatch();
 
    const signUpFormValid = async (values) => {
@@ -38,14 +37,9 @@ export default function Login() {
     return errors;
   };
 
-const handleLogin = (loginInfo) => {
-    dispatch(authActions.login(loginInfo))
-}
-
-  // const schema = yup.object().shape({
-  //   email: yup.string().email().required(),
-  //   password: yup.string().required(),
-  // });
+  const handleLogin = (loginRequest) => {
+    dispatch(authActions.signIn(loginRequest))
+  }
 
   return (
     <div>
