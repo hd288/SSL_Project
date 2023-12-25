@@ -13,6 +13,7 @@ import {
 const initialState = {
   users: [],
   userInfo: {},
+  isProfile: false
 };
 
 // Get Student Profile
@@ -29,13 +30,13 @@ const getStudentProfile = createAsyncThunk("student/profile", async () => {
 const editStudentProfile = createAsyncThunk(
   "student/profile/edit",
   async (studentRequest) => {
-    try {
-      console.log(studentRequest);
-      const response = await api.students.editStudentProfile(studentRequest);
-      return response.data;
 
+    try {
+      const response = await api.students.editStudentProfile(studentRequest);
+
+      return response.data;
     } catch (err) {
-      console.log(err);
+
       return err.response.data;
     }
   }
@@ -46,12 +47,13 @@ const studentSlice = createSlice({
   initialState: initialState,
   extraReducers: (builder) => {
     builder.addCase(getStudentProfile.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.userInfo = action.payload;
     });
 
     // Edit profile
     builder.addCase(editStudentProfile.fulfilled, (state, action) => {
-        console.log(action.payload);
+        state.userInfo = action.payload;
     });
   },
 });

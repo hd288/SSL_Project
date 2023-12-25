@@ -8,10 +8,14 @@ import api from '@api';
 
 
 export default function Profile({tokenRq}) {
+ 
   const [tokenObj, setTokenObj] = useState({})
   const [isShow, setIsShow] = useState(false);
   const dispatch = useDispatch();
   const { user, isLogin, tokenRefreshRequest } = useSelector((store) => store.auth);
+  const { userInfo } = useSelector((store) => store.students);
+
+   const [avatar, setAvatar] = useState(user.image);
 
   const handleLogout = () => {
     dispatch(authActions.logout(tokenObj));
@@ -20,6 +24,10 @@ export default function Profile({tokenRq}) {
   useEffect(() => {
       setTokenObj(tokenRefreshRequest)
   }, [isLogin]);
+
+    useEffect(() => {
+      setAvatar(userInfo.image)
+  }, [userInfo]);
 
   const handleGetProfile = () => {
     dispatch(studentActions.getStudentProfile());
@@ -31,7 +39,7 @@ export default function Profile({tokenRq}) {
         <img
           src={
             user.image !== null
-              ? user.image
+              ? avatar
               : "https://th.bing.com/th/id/R.3abb4bc7c23af5666c75aeb4552afc8b?rik=qkoqoTbRhOmbvQ&pid=ImgRaw&r=0"
           }
           alt="avatar"

@@ -5,20 +5,16 @@ import Login from "../../pages/Login&Signup/Login";
 import Signup from "../../pages/Login&Signup/Signup";
 
 import Profile from "../profile";
-
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Header() {
-  const dispatch = useDispatch()
-  const isLogin = useSelector(store => store.auth.isLogin)
- 
+  const [show, setShow] = useState(false);
+  const {isLogin, tokenRefreshRequest } = useSelector(store => store.auth)
 
   useEffect(() => {
-
+    setShow(isLogin)
   }, [isLogin])
-
-
 
   return (
     <div className="py-3 mx-5 d-flex justify-content-between align-items-center border-bottom py-2">
@@ -39,9 +35,10 @@ export default function Header() {
       </Container>
    
       <Container className="p-0 m-0 d-flex flex-row justify-content-end align-items-center gap-3">
+      {/* <Profile tokenRq={tokenRefreshRequest}/> */}
         {
-        isLogin ? 
-        <Profile/> :
+        show ? 
+        <Profile tokenRq={tokenRefreshRequest}/> :
         <div className="p-0 m-0 d-flex flex-row justify-content-end align-items-center gap-3">
           <MyModal
             buttonText="Login"

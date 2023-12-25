@@ -1,13 +1,13 @@
 import React from "react";
-import Course from "../components/course/Course";
+import Lesson from "../components/lesson/Lesson";
+import Page401 from "../components/401";
 
 export default function Careers() {
 
   return (
     <>
       <div>
-        {/*  e để tạm cái component course ở đây để build thôi nhé a Đức */}
-        <Course />
+          <Page401/>
       </div>
     </>
   );

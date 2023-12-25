@@ -7,15 +7,20 @@ import { Route, Routes } from "react-router-dom";
 import PasswordForm from "../components/ProfileDetail/PasswordForm/PasswordForm";
 import UserPage from "../pages/UserPage";
 import Careers from "../pages/Careers";
+import CoursePage from "../pages/CoursePage";
+import Blogs from "../pages/Blogs";
+import Lesson from "../components/lesson/Lesson";
 
 export default function MainRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/careers" element={<Careers />}/>
+      <Route path="/blogs" element={<Blogs />}/>
       <Route path="/user" element={<UserPage />}/>
       <Route path="/careers" element={<Careers />}/>
-      {/* <Route path="/user/profile" element={<ProfileDetail/>} />
-      <Route path="/user/password" element={<PasswordForm/>} /> */}
+      <Route path="/course" element={<CoursePage />}/>
+      <Route path="/lesson" element={<Lesson />}/>
     </Routes>
   );
 }

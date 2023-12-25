@@ -7,5 +7,5 @@ import courses from './modules/courses.';
 export default {
     auth,
     courses,
-    students    
+    students   
 }

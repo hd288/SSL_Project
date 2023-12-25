@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -17,17 +17,22 @@ import {
 import MyModal from "../elements/MyModal";
 import Lesson from "../lesson/Lesson";
 import MyOffCanvas from "../elements/MyOffCanvas";
+import { useSelector } from "react-redux";
 
 export default function Course() {
+  // const [course, setCourse] = useState({})
+  const {course}  = useSelector((store) => store.course)
+
   return (
     <div className="pt-5">
       <Row className="px-5 mx-5">
         <Col lg={9} className="d-flex justify-content-center">
           <div>
             <div>
-              <h4 className="text-center">Lorem ipsum dolor sit amet.</h4>
+              <h4 className="text-center">{course.courseTitle}</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                {course.courseDesc}
+                {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Praesentium id debitis iste perspiciatis obcaecati quo ducimus
                 voluptas corporis assumenda dolores vero aliquid ad dolor,
                 doloremque voluptate quia dolore est ab. Lorem ipsum dolor sit
@@ -44,7 +49,7 @@ export default function Course() {
                 est ab. Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Praesentium id debitis iste perspiciatis obcaecati quo ducimus
                 voluptas corporis assumenda dolores vero aliquid ad dolor,
-                doloremque voluptate quia dolore est ab.
+                doloremque voluptate quia dolore est ab. */}
               </p>
             </div>
 
@@ -54,7 +59,7 @@ export default function Course() {
                 20 {/* thay đổi số ở đây thôi  */}
                 <span className="fw-lighter">
                   Lessons - Approximately
-                </span> 200 {/* thay đổi số ở đây thôi  */}
+                </span> {course.duration}
                 <span className="fw-lighter">hours</span>
               </p>
               <Accordion defaultActiveKey="1" alwaysOpen flush className="w-75">
@@ -147,7 +152,7 @@ export default function Course() {
         >
           <Image
             className="w-100 rounded border"
-            src="https://itplus-academy.edu.vn/upload/java-1438088500.png"
+            src={course.imageCourseUrl}
           />
           <h4 className="text-center text-warning  my-3">Price: 500$</h4>
 
@@ -160,13 +165,13 @@ export default function Course() {
             </ListGroupItem>
             <ListGroupItem className="d-flex align-items-center gap-2">
               <BsClockHistory />
-              Duration: 200 hours
+              Duration: {course.duration} hours
             </ListGroupItem>
           </ListGroup>
 
           <MyModal
             buttonText="Start Learning"
-            modalTitle={`Tên bài học ở đây nhé a Đức`}
+            modalTitle={course.courseTitle}
             modalBodyComponent={<Lesson />}
             buttonVariant="warning  my-2 w-75 align-self-center"
             fullscreen={true}

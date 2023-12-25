@@ -13,18 +13,24 @@ export default function UserDetail() {
     "https://th.bing.com/th/id/R.d44ee515740c6442102f8f06ff4049b9?rik=LHx11kIUGZMrFQ&pid=ImgRaw&r=0"
   );
 
+ 
+
+
   // Store
   const dispatch = useDispatch();
   const { userInfo } = useSelector((store) => store.students);
 
+  const [user, setUser] = useState(userInfo)
+
+
   const formik = useFormik({
     initialValues: {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      address: userInfo.address,
-      phoneNumber: userInfo.phoneNumber,
-      birthDay: userInfo.birthDay,
-      gender: userInfo.gender ? 'men' : 'women',
+      firstName: user.firstName,
+      lastName: user.lastName,  
+      address: user.address,
+      phoneNumber: user.phoneNumber,
+      birthDay: user.birthDay,
+      gender: user.gender ? 'men' : 'women',
       fileAvatar: null,
     },
     onSubmit: async (values) => {
@@ -37,24 +43,11 @@ export default function UserDetail() {
       formData.append("gender", values.gender);
       formData.append("fileAvatar", values.fileAvatar);
 
-      // await axios
-      // .post(`http://localhost:8989/api/v1/users/${user.member_no}`, formData, 
-      //  {
-      //    headers: {'Content-Type': 'multipart/form-data'}
-      //  })
-      // .then((res) => {
-      //   console.log(res.data);
-      //   if (res.status === 201) {
-      //     console.log('succes');
-      //   }
-      // })
-      // .catch((err) => {
-      //   console.log('ee');
-      // });
-    
       dispatch(studentActions.editStudentProfile(formData))
     },
   });
+
+  console.log("formik",formik.values);
 
   // Handle File
   const handleAvatar = (e) => {
@@ -94,7 +87,7 @@ export default function UserDetail() {
               <input 
                 name="fileAvatar"
                 onChange={(e) => {
-                  formik.setFieldValue("fileAvatar", e.target.files),
+                  formik.setFieldValue("fileAvatar", e.target.files[0]),
                   handleAvatar(e)
                 }}
                 type="file"

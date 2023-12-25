@@ -25,7 +25,7 @@ import {
 export default {
   getStudentProfile: () => instance.get("/api/v1/users/profile"),
   editStudentProfile: (studentRequest) =>
-    instance.puy("/api/v1/users/profile", studentRequest, {
+    instance.put("/api/v1/users/profile", studentRequest, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Accept": "*/*",

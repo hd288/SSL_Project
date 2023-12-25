@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Image } from "react-bootstrap";
 import "./card.css";
+import { Link } from "react-router-dom";
+import courses from "../../api/modules/courses.";
+import { useDispatch } from "react-redux";
+import { courseActions } from "@store/courseSlice.js"
 
 export default function Card(props) {
+  const dispatch = useDispatch();
+
   const [bgImg] = useState([
     "linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%)",
     "linear-gradient(to right, #DD5E89 0%, #F7BB97  51%, #DD5E89  100%)",
@@ -27,6 +33,10 @@ export default function Card(props) {
     return bgImg[randomIndex];
   };
 
+  const handleGetCourse = (courseId) => {
+    dispatch(courseActions.getCourseById(courseId))
+  }
+
   return (
     <div>
       <div
@@ -44,14 +54,14 @@ export default function Card(props) {
           {props.courseTitle} 
         </div>
         <div className=" position-absolute w-100 h-100  align-items-center justify-content-center">
-          <a
-            href={props.link}
-            className="btn btn-light w-50 "
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            See more
-          </a>
+          <Link
+            to="/course"
+             className="btn btn-light w-50 "
+             rel="noopener noreferrer"
+             onClick={() => handleGetCourse(props.courseId)}
+          >  
+            See more 
+          </Link>
         </div>
       </div>
     </div>

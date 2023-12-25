@@ -5,12 +5,10 @@ import { useSelector } from "react-redux";
 
 
 export default function MyModal({
-  buttonIcon,
   buttonText,
   modalTitle,
   modalBodyComponent,
   buttonVariant,
-  fullscreen,
 }) {
   
   const { isLogin, isRegister } = useSelector(store => store.auth)
@@ -29,10 +27,10 @@ export default function MyModal({
   return (
     <>
       <Button onClick={handleShow} variant={buttonVariant}>
-      {buttonIcon} {buttonText}
+        {buttonText}
       </Button>
 
-      <Modal show={show} fullscreen={fullscreen} onHide={handleClose} size="xl">
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title >{modalTitle}</Modal.Title>
         </Modal.Header>
