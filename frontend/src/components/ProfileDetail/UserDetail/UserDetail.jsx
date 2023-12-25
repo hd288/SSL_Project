@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "../profile-detail.css";
+
 import { Field, useFormik } from "formik";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { studentActions } from "@store/studentSlice";
 import axios from "axios";
+
 
 // https://blog.logrocket.com/using-filereader-api-preview-images-react/
 // https://jasonwatmore.com/post/2021/08/24/axios-http-put-request-examples
@@ -13,16 +15,27 @@ export default function UserDetail() {
     "https://th.bing.com/th/id/R.d44ee515740c6442102f8f06ff4049b9?rik=LHx11kIUGZMrFQ&pid=ImgRaw&r=0"
   );
 
+  const [isShow, setIsShow] = useState(false)
  
-
-
   // Store
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((store) => store.students);
-
+  const { userInfo, isUpdate } = useSelector((store) => store.students);
   const [user, setUser] = useState(userInfo)
 
+  useEffect(() => {
+    if(isUpdate) {
+      setUser (userInfo)
+    }
 
+  },[isUpdate, userInfo] )
+
+  useEffect(() => {
+    if (userInfo.image != null) {
+      setAvatar(userInfo.image);
+    }
+  }, [userInfo.image]);
+
+  // Formik
   const formik = useFormik({
     initialValues: {
       firstName: user.firstName,
@@ -47,7 +60,6 @@ export default function UserDetail() {
     },
   });
 
-  console.log("formik",formik.values);
 
   // Handle File
   const handleAvatar = (e) => {
@@ -66,14 +78,14 @@ export default function UserDetail() {
     fileReader.readAsDataURL(file);
   };
 
-  useEffect(() => {
-    if (userInfo.image != null) {
-      setAvatar(userInfo.image);
-    }
-  }, [userInfo.image]);
 
+  
   return (
     <div className="user-detail">
+      {
+        isShow ? <div id="snackbar">Update profile successfully !</div> : '' 
+      }
+
       <h1>Profile</h1>
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
         <div className="profile-form">

@@ -76,10 +76,10 @@ const authSlice =  createSlice({
             .addCase(signIn.fulfilled, (state, action) => {
 
                 if (action.payload.httpStatus !== 'UNAUTHORIZED') {
-                    state.userInfo = action.payload
+                    state.user = action.payload
                     setCookie('ut', action.payload.accessToken, (new Date()).getTime() + 24*60*60*1000)
 
-                    let cookieValue = encodeValue(state.userInfo)
+                    let cookieValue = encodeValue(state.user)
                     setCookie('u', cookieValue, action.payload.expiryDate)
                    
                     state.isLogin = true
@@ -90,13 +90,14 @@ const authSlice =  createSlice({
            // register
            builder
            .addCase(signUp.fulfilled, (state, action) => {
-                if(action.httpStatus === 'CREATED') {
-                    state.isRegister = true,
+            
+                console.log(action.payload);
+                state.isRegister = true
 
-                    setTimeout(() => {
-                        state.isRegister = false
-                    }, 2000)
-                }
+                setTimeout(() => {
+                    state.isRegister = false
+                }, 2000)
+        
            })
            .addCase(signUp.rejected, (state, action) => {
             console.log(action.payload.validateMessage.email);

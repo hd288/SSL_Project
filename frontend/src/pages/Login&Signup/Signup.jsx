@@ -12,8 +12,8 @@ import * as yup from "yup";
 export default function Signup() {
   const dispatch =  useDispatch();
   const { Formik } = formik;
-  const {errorMessage} = useSelector((store) => store.auth)
-
+  const {errorMessage, isRegister} = useSelector((store) => store.auth)
+  
 
   const schema = yup.object().shape({
     firstName: yup.string().required(),

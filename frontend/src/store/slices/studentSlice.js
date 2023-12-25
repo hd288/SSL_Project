@@ -13,7 +13,7 @@ import {
 const initialState = {
   users: [],
   userInfo: {},
-  isProfile: false
+  isUpdate: false
 };
 
 // Get Student Profile
@@ -47,13 +47,13 @@ const studentSlice = createSlice({
   initialState: initialState,
   extraReducers: (builder) => {
     builder.addCase(getStudentProfile.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.userInfo = action.payload;
     });
 
     // Edit profile
     builder.addCase(editStudentProfile.fulfilled, (state, action) => {
         state.userInfo = action.payload;
+        state.isUpdate = true;
     });
   },
 });
