@@ -21,7 +21,7 @@ public class AuthControllerAdvice {
     @ExceptionHandler(LoginFailException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public MessageResponse handleLoginFailException(LoginFailException e) {
-        return new MessageResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
+        return new MessageResponse(HttpStatus.UNAUTHORIZED, e.getMessage(), new HashMap<>());
     }
 
 
@@ -29,7 +29,7 @@ public class AuthControllerAdvice {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public MessageResponse handleRefreshTokenException
             (TokenRefreshException e, WebRequest request) {
-        return new MessageResponse(HttpStatus.FORBIDDEN, e.getMessage());
+        return new MessageResponse(HttpStatus.FORBIDDEN, e.getMessage(), new HashMap<>());
     }
 
 }

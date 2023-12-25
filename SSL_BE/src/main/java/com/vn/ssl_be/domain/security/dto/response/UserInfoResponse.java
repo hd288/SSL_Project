@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -18,5 +19,7 @@ public class UserInfoResponse {
     private String accessToken;
     private String refreshToken;
     private List<String> roles;
+    private Instant expiryDate;
+    private String image;
     private String tokenType;
 }

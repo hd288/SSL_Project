@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 public class SslBeApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SslBeApplication.class, args);
     }
     @Bean
