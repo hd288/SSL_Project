@@ -11,12 +11,17 @@ import com.vn.ssl_be.domain.student.exception.StudentException;
 import com.vn.ssl_be.domain.student.model.Student;
 import com.vn.ssl_be.domain.student.repository.StudentRepository;
 import com.vn.ssl_be.domain.student.service.StudentService;
+import jakarta.servlet.http.Part;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 @Service
@@ -66,12 +71,42 @@ public class StudentServiceImpl implements StudentService {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByEmail(userDetails.getUsername()).orElseThrow(() -> DomainException.notFound(userDetails.getUsername()));
 
-        mapper.map(studentRequest, user);
+//        mapper.map(studentRequest, user);
+        if(studentRequest.getFirstName() != null) {
+            user.setFirstName(studentRequest.getFirstName());
+        }
+
+        if(studentRequest.getLastName() != null) {
+            user.setLastName(studentRequest.getLastName());
+        }
+
+        if(studentRequest.getAddress() != null) {
+            user.setAddress(studentRequest.getAddress());
+        }
+
+        if(studentRequest.getPhoneNumber() != null) {
+            user.setPhoneNumber(studentRequest.getPhoneNumber());
+        }
+
+        if(studentRequest.getBirthDay() != null) {
+            user.setBirthDay(studentRequest.getBirthDay());
+        }
+
+        if(studentRequest.getGender() != null) {
+            user.setGender(studentRequest.getGender().equals("men"));
+        }
+
+
         if(studentRequest.getFileAvatar() != null){
             user.setImage(uploadService.uploadFile(studentRequest.getFileAvatar()));
         }
-        userRepository.save(user);
 
-        return mapper.map(user, StudentResponse.class );
+
+        return mapper.map(userRepository.save(user), StudentResponse.class );
+    }
+
+    @Override
+    public StudentResponse getStudentProfileByEmail(String email) {
+        return null;
     }
 }

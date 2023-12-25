@@ -4,6 +4,7 @@ import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.common.util.UploadService;
 import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
 import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
+import com.vn.ssl_be.domain.course.dto.response.PageResponseDtoV2;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
@@ -15,10 +16,12 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,12 +38,56 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public PageResponseDto<Course> findAll(Pageable pageable) {
         Page<Course> page = courseRepository.findAll(pageable);
+
         return PageResponseDto.<Course>builder()
                 .data(page.getContent())
                 .totalPage(page.getTotalPages())
                 .pageNumber(page.getTotalPages())
-                .size(page.getSize())
+                .size(8)
                 .sort(page.getSort().toString()).build();
+    }
+
+    @Override
+    public PageResponseDtoV2<CourseResponse> getCourses(Integer page) {
+        List<CourseResponse> data = new ArrayList<>();
+        List<CourseResponse> courseResponses = courseRepository.findAll().stream().map(course -> {
+                CourseResponse courseResponse = modelMapper.map(course, CourseResponse.class);
+                    return courseResponse;
+        }).toList();
+
+
+
+        int pageSize = 8;
+        int end = 0;
+        int pageNumber = 1;
+
+        if (page != null) {
+            end = pageSize * page;
+            pageNumber = page;
+        }else  {
+            end =  pageSize;
+
+        }
+
+        int start =  end - pageSize;
+        int totalPage = (courseResponses.size() / 8) + 1;
+
+        if(end > courseResponses.size()) {
+            end = courseResponses.size();
+        }
+
+        for (int i = start; i < end; i++) {
+            data.add(courseResponses.get(i));
+        }
+
+        PageResponseDtoV2<CourseResponse> pageResponseDto =  new PageResponseDtoV2<>();
+        pageResponseDto.setTotalPage(totalPage);
+        pageResponseDto.setData(data);
+        pageResponseDto.setSize(8);
+        pageResponseDto.setPageNumber(pageNumber);
+        pageResponseDto.setSort(null);
+
+        return pageResponseDto;
     }
 
     @Override

@@ -75,7 +75,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .fullName(user.getFullName())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken.getToken())
+                .expiryDate(refreshToken.getExpiryDate())
                 .roles(roles)
+                .image(user.getImage())
                 .tokenType("Bearer")
                 .build();
     }
@@ -99,10 +101,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Student student = studentService.createStudent(user);
         studentService.save(student);
 
-        return new MessageResponse(
-                HttpStatus.CREATED,
-                "User registered successfully!"
-        );
+        return MessageResponse.builder()
+                .httpStatus(HttpStatus.CREATED)
+                .message("User registered successfully!")
+                .build();
     }
 
 

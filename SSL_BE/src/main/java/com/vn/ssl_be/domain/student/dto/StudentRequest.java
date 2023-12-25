@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.Date;
 
 @Data
@@ -22,7 +24,7 @@ public class StudentRequest {
 
     private String phoneNumber;
 
-    private boolean gender;
+    private String gender;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDay;

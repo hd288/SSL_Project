@@ -2,6 +2,7 @@ package com.vn.ssl_be.controller;
 
 import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
+import com.vn.ssl_be.domain.course.dto.response.PageResponseDtoV2;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
@@ -24,6 +26,12 @@ public class CourseWebController {
     public ResponseEntity<PageResponseDto<CourseResponse>> getCoursesForUser(Pageable pageable) {
         return new ResponseEntity<>(courseService.findAllCourseForUser(pageable), HttpStatus.OK);
     }
+
+    @GetMapping("/home-courses")
+    public ResponseEntity<PageResponseDtoV2<CourseResponse>> getCourses(@RequestParam(required = false)  Integer page) {
+        return new ResponseEntity<>(courseService.getCourses(page), HttpStatus.OK);
+    }
+
     //Show list courses when user research(pageable)
     @GetMapping("/courses/search")
     public ResponseEntity<PageResponseDto<CourseResponse>> getCoursesByNameOrDescForUser(@RequestParam("query") String keyword, Pageable pageable) {
