@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35202114-8304-4659-8670-8a32064d6d9c" name="Changes" comment="test be 2" />
+    <list default="true" id="35202114-8304-4659-8670-8a32064d6d9c" name="Changes" comment="test be 2">
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CategoryAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseWebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/controller/CourseWebController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CategoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CategoryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CourseRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/dto/CourseRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/model/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/service/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/course/serviceImpl/CourseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/lesson/model/Lesson.java" beforeDir="false" afterPath="$PROJECT_DIR$/SSL_BE/src/main/java/com/vn/ssl_be/domain/lesson/model/Lesson.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,17 +31,50 @@
         <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
-  }
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
 }</component>
+  <component name="ProjectId" id="2ZZK3rQmvKMOXWn0pXqtdsCqjMd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Features/Controller__CoursesWeb",
+    "last_opened_file_path": "C:/Users/BenLaptop/Desktop/New folder (2)/SSL_Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="SSL_Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SSL_Project" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -45,8 +92,22 @@
       <option name="project" value="LOCAL" />
       <updated>1702539828132</updated>
     </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="35202114-8304-4659-8670-8a32064d6d9c" name="Changes" comment="test be 2" />
+      <created>1702623972117</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702623972117</updated>
+      <workItem from="1702623976039" duration="50000" />
+      <workItem from="1702812386503" duration="17000" />
+      <workItem from="1702812501211" duration="13000" />
+      <workItem from="1702981650534" duration="12000" />
+    </task>
     <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
