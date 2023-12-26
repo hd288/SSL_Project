@@ -46,7 +46,7 @@ export default function Lesson() {
 
   
   const lessonArray = [
-    { id: 1, title: "How to HTML CSS", link: "https://www.youtube.com/watch?v=a55EVkWhWTc" },
+    { id: 1, title: "How to HTML CSS", link: "https://www.youtube.com/watch?v=R6plN3FvzFY&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz" },
     { id: 2, title: "Javascript in a nutshell", link: "https://www.youtube.com/watch?v=LkY75DvJnlk" },
   ];
   const [selectedLesson, setSelectedLesson] = useState(lessonArray[0].id);
