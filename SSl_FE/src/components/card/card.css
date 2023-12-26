@@ -1,0 +1,10 @@
+.anchor-overlay .position-absolute {
+    display: none;
+    background-color: #3535358c;
+    border-radius: 0.375rem;
+  }
+  
+  .anchor-overlay:hover .position-absolute {
+    display: flex;
+  }
+  
