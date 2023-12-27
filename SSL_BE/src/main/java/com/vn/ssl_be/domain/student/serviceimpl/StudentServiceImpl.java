@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,15 +45,19 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
-    @Override
-    public List<Student> findAll() {
-        return studentRepository.findAll();
-    }
 
     @Override
-    public Student findById(String userId) throws StudentException{
-        return studentRepository.findById(userId).orElseThrow(() -> StudentException.notFound("Could not find Id"));
+    public List<StudentResponse> findAll() {
+        return studentRepository.findAll().stream().map(student -> mapper.map(student.getUser(),StudentResponse.class)).collect(Collectors.toList());
     }
+
+
+    @Override
+    public StudentResponse findById(String userId) throws StudentException{
+        Student student = studentRepository.findById(userId).orElseThrow(() -> StudentException.notFound("Could not find Id"));
+        return mapper.map(student.getUser(), StudentResponse.class);
+    }
+
 
     @Override
     public void deleteById(String userId) {
