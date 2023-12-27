@@ -12,8 +12,8 @@ import java.util.List;
 public interface StudentService {
     Student createStudent(User user);
     void save(Student student);
-    List<Student> findAll();
-    Student findById(String userId) throws StudentException;
+    List<StudentResponse> findAll();
+    StudentResponse findById(String userId) throws StudentException;
     void deleteById(String userId);
     StudentResponse getStudentProfile();
     StudentResponse updateStudentProfile(StudentRequest studentRequest);
