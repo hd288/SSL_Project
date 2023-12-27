@@ -16,5 +16,5 @@ public interface LessonService{
     /**************************/
     /* Method Advance */
     List<Lesson> findAllLessonByCourseId(String courseId);
-    List<Lesson> findAllCourseByTitle(String keyword);
+    List<Lesson> findAllLessonByTitle(String keyword);
 }

@@ -74,7 +74,7 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> findAllCourseByTitle(String keyword) {
+    public List<Lesson> findAllLessonByTitle(String keyword) {
         List<Lesson> searchResults = lessonRepository.findAllByLessonTitleContaining(keyword);
         if (searchResults.isEmpty()) {
             throw CourseException.notFound("No lessons found matching the search criteria.");
