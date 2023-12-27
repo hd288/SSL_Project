@@ -14,27 +14,20 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 public class StudentQuestionController {
     private final QuestionService questionService;
     private final LessonService lessonService;
     private final StudentQuestionService studentQuestionService;
 
-    //send student'answer to back-end, include [{studentAnswer, questionId, stuentAnswer}]
+    //send student's answer to back-end, include [{studentAnswer, questionId, stuentAnswer}]
     @PostMapping("/answer")
     public ResponseEntity<List<StudentQuestion>> handlePostAnswer(@RequestBody List<StudentQuestionRequest> studentQuestionRequests) {
         List<StudentQuestion> savedStudentQuestions = studentQuestionService.save(studentQuestionRequests);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedStudentQuestions);
     }
 
-    //count question in a lesson, lessonId is required (admin dashboard)
-    @GetMapping("/count-questions/{lessonId}")
-    public ResponseEntity<Integer> countQuestionsByLessonId(@PathVariable Long lessonId) {
-        int count = questionService.countByLessonId(lessonId);
-        return new ResponseEntity<>(count, HttpStatus.OK);
-    }
-
-    //get data from back-end, student'answer, lessonId is required.
+    //get data from back-end, student's answer, lessonId is required.
     @GetMapping("/student-answers/{lessonId}")
     public ResponseEntity<List<String>> getStudentAnswersByLessonId(@PathVariable Long lessonId) {
         List<String> studentAnswers = studentQuestionService.getStudentAnswersByLessonId(lessonId);
@@ -48,11 +41,11 @@ public class StudentQuestionController {
     //calculate score in a lesson, such as: a calculate result button
     @GetMapping("/score/{lessonId}")
     public ResponseEntity<Double> calculateScoreOfLesson(@PathVariable Long lessonId) {
-        double scrore = studentQuestionService.calculateScoreOfLesson(lessonId);
-        return new ResponseEntity<>(scrore, HttpStatus.OK);
+        double score = studentQuestionService.calculateScoreOfLesson(lessonId);
+        return new ResponseEntity<>(score, HttpStatus.OK);
     }
 
-    //clear student'answer, such as: a clear button
+    //clear student's answer, such as: a clear button
     @DeleteMapping("/delete-questions/{lessonId}")
     public ResponseEntity<String> deleteQuestionsOfStudent(@PathVariable Long lessonId) {
         studentQuestionService.deleteStudentQuestionsByQuestion_Lesson_LessonId(lessonId);
