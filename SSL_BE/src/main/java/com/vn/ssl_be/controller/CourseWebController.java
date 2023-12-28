@@ -1,8 +1,9 @@
 package com.vn.ssl_be.controller;
 
 import com.vn.ssl_be.common.util.PageResponseDto;
+import com.vn.ssl_be.domain.course.dto.response.CourseDetailResponseV1;
 import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
-import com.vn.ssl_be.domain.course.dto.response.PageResponseDtoV2;
+import com.vn.ssl_be.domain.course.dto.response.PageResponseDtoV1;
 import com.vn.ssl_be.domain.course.model.Course;
 import com.vn.ssl_be.domain.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,13 @@ public class CourseWebController {
     }
 
     @GetMapping("/home-courses")
-    public ResponseEntity<PageResponseDtoV2<CourseResponse>> getCourses(@RequestParam(required = false)  Integer page) {
+    public ResponseEntity<PageResponseDtoV1<CourseResponse>> getCourses(@RequestParam(required = false)  Integer page) {
         return new ResponseEntity<>(courseService.getCourses(page), HttpStatus.OK);
+    }
+
+    @GetMapping("/courses-details/{courseId}")
+    public ResponseEntity<CourseDetailResponseV1> getCourseDetail(@PathVariable  String courseId) {
+        return new ResponseEntity<>(courseService.getCourseDetail(courseId), HttpStatus.OK);
     }
 
     //Show list courses when user research(pageable)

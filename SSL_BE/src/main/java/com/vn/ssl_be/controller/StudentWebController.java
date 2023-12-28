@@ -8,6 +8,7 @@ import com.vn.ssl_be.domain.student.dto.StudentRequest;
 import com.vn.ssl_be.domain.student.dto.StudentResponse;
 import com.vn.ssl_be.domain.student.model.Student;
 import com.vn.ssl_be.domain.student.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
