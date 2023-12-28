@@ -1,23 +1,61 @@
 import "../profile-detail.css";
-import { Field, Formik } from "formik";
+import { Field, Formik, ErrorMessage } from "formik";
 import { Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../../store/slices/authSlice";
+
 
 export default function PasswordForm() {
+  const dispatch = useDispatch();
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{8,}$/
+  const { errorMessage } = useSelector((store) => store.auth)
+
+
+  const changePasswordFormValid = async (values) => {
+    const errors = {};
+
+    if (!values.oldPassword) {
+      errors.oldPassword = "Please enter current password !";
+    } 
+
+    if (!values.newPassword) {
+      errors.newPassword = "Please enter new password !";
+    }else if(!passwordRegex.test(values.newPassword)){
+      errors.newPassword =  "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one digit, and one special character";
+    }
+
+    if (!values.confirmNewPassword) {
+      errors.confirmNewPassword = "Please enter new password !";
+    }else if(values.confirmNewPassword != values.confirmNewPassword) {
+      errors.confirmNewPassword = "Confirm password do not match!";
+    }
+
+    return errors;
+  };
+
+  const handelSubmit = (values) => {
+    dispatch(authActions.changePassword(values))
+  }
+
   return (
     <div className="user-container">
       <div className="user-detail">
         <Formik
           initialValues={{
-            email: "",
-            password: "",
-            // checkRemember: true,
+            oldPassword: "",
+            newPassword: "",
+            confirmNewPassword: ""
           }}
+          validate={changePasswordFormValid}
           onSubmit={(values, { resetForm }) => {
+            handelSubmit(values);
             resetForm();
           }}
         >
-          {({ handleChange }) => (
-            <Form>
+          {({handleSubmit, handleChange }) => (
+            <Form
+            onSubmit={handleSubmit}
+            >
               <div className="profile-form">
                 {/* right-pane */}
                 <div className="form--input-wrapper">
@@ -30,10 +68,15 @@ export default function PasswordForm() {
                         <Form.Control
                           form-control
                           type="password"
-                          name="curPassword"
+                          name="oldPassword"
+                          onChange={handleChange}
                           placeholder="Enter your current password"
                         />
                       </div>
+                      {<div className="text-danger ">{errorMessage}</div>}
+                      <ErrorMessage name="oldPassword">
+                        {(message) => (<div className="text-danger ">{message}</div>)}
+                      </ErrorMessage>
                     </div>
                   </div>
                   {/* block - 1 */}
@@ -45,9 +88,13 @@ export default function PasswordForm() {
                           form-control
                           type="password"
                           name="newPassword"
+                          onChange={handleChange}
                           placeholder="Enter your new password"
                         />
                       </div>
+                      <ErrorMessage name="newPassword">
+                        {(message) => (<div className="text-danger ">{message}</div>)}
+                      </ErrorMessage>
                     </div>
                   </div>
                   {/* block - 3 */}
@@ -58,14 +105,18 @@ export default function PasswordForm() {
                         <Form.Control
                           form-control
                           type="password"
-                          name="confPassword"
+                          name="confirmNewPassword"
+                          onChange={handleChange}
                           placeholder="Enter your confirm password"
                         />
                       </div>
+                      <ErrorMessage name="confirmNewPassword">
+                        {(message) => (<div className="text-danger ">{message}</div>)}
+                      </ErrorMessage>
                     </div>
                   </div>
                   <div className="btn-wrapper">
-                    <button className="save-btn">Save</button>
+                    <button type="submit" className="save-btn">Save</button>
                   </div>
                 </div>
               </div>

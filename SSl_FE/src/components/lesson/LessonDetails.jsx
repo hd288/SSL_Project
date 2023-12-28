@@ -6,10 +6,12 @@ import { BsChatTextFill } from "react-icons/bs";
 import Error from "../elements/Error";
 import MyOffCanvas from "../elements/MyOffCanvas";
 import QuizForm from "./QuizForm";
+import { useSelector } from "react-redux";
 
-export default function LessonDetails({ lesson }) {
+export default function LessonDetails({lesson}) {
   const [playTime, setPlayTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  console.log(lesson);
 
   const handleProgress = (state) => {
     if (isPlaying) {
@@ -49,7 +51,7 @@ export default function LessonDetails({ lesson }) {
   return (
     <>
       <ReactPlayer
-        url={lesson.link}
+        url={lesson.contentLink}
         width="100%"
         height="670px"
         playing={isPlaying}
@@ -61,8 +63,8 @@ export default function LessonDetails({ lesson }) {
 
       <Container className="d-flex justify-content-between p-3 gap-3">
         <MyModal
-          buttonText={`Part ${lesson.id} Quiz`}
-          modalTitle={`Part ${lesson.id} Quiz`}
+          buttonText={`Part ${lesson.lessonId} Quiz`}
+          modalTitle={`Part ${lesson.lessonId} Quiz`}
           modalBodyComponent={<QuizForm />}
           buttonVariant="warning"
         />

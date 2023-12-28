@@ -65,7 +65,7 @@ export default function Profile({tokenRq}) {
         <ul className="profile-menu-list">
           <li>
             {/* <a href="">Profile</a> */}
-            <Link to="/user" onClick={() => handleGetProfile()}>
+            <Link to="/user/profile" onClick={() => handleGetProfile()}>
               Profile
             </Link>
           </li>

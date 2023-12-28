@@ -14,7 +14,6 @@ export default function Home() {
   const {courses, totalPage, pageNumber}  =  useSelector((store) => store.course)
   const dispatch =  useDispatch();
 
-
   useEffect(() => {
     dispatch(courseActions.getCourses())
   }, [pageNumber]);

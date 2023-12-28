@@ -3,6 +3,7 @@ import { Image, Button, Container, FormControl } from "react-bootstrap";
 import MyModal from "../elements/MyModal";
 import Login from "../../pages/Login&Signup/Login";
 import Signup from "../../pages/Login&Signup/Signup";
+import "./header.css"
 
 import Profile from "../profile";
 import { useEffect, useState } from "react";
@@ -27,11 +28,13 @@ export default function Header() {
         />
         <h4 className="text-danger fw-lighter m-0">SwiftSkills Lab</h4>
       </Container>
-      <Container className="p-0 m-0 d-flex flex-row justify-content-center align-items-center">
+      <Container className="search position-relative p-0 m-0 d-flex flex-row justify-content-center align-items-center">
+        
         <FormControl
-          className="mx-2 w-75 border-danger"
-          placeholder="Search for courses, posts, videos..."
+          className="w-75 border-danger"
+          placeholder="Search for courses"
         />
+        <button className="find-btn bg-white border-danger"><i className="fa-solid fa-magnifying-glass"></i></button>  
       </Container>
    
       <Container className="p-0 m-0 d-flex flex-row justify-content-end align-items-center gap-3">
