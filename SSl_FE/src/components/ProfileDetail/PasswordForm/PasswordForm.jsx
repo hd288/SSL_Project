@@ -16,9 +16,6 @@ export default function PasswordForm() {
     if(message.length > 0) {
       setIsShow(true)
     }   
-
-  
-   
   }, [message])
 
   setTimeout(() => {
