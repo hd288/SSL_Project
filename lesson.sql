@@ -1,5 +1,9 @@
 INSERT INTO lesson(course_id, content_link, lesson_title)
-VALUES ('187e33c5-2def-49e1-800f-e94f5f968630', 'https://www.youtube.com/watch?v=6Wd1iR9bRR8&list=PLsfLgp1K1xQ53rzo7vo2dKamBu0bj7lkv', ' Giới thiệu về Java Servlet'),
+VALUES 
+('12d97277-2eb5-4592-9521-8491e745c49c', 'https://www.youtube.com/watch?v=LAUi8pPlcUM&list=PLC3y8-rFHvwh8shCMHFA5kWxD9PaPwxaY', 'Node.js-Introduction'),
+('12d97277-2eb5-4592-9521-8491e745c49c', 'https://www.youtube.com/watch?v=LAUi8pPlcUM&list=PLC3y8-rFHvwh8shCMHFA5kWxD9PaPwxaY', 'SSR & CSR'),
+
+('187e33c5-2def-49e1-800f-e94f5f968630', 'https://www.youtube.com/watch?v=6Wd1iR9bRR8&list=PLsfLgp1K1xQ53rzo7vo2dKamBu0bj7lkv', ' Giới thiệu về Java Servlet'),
 ('187e33c5-2def-49e1-800f-e94f5f968630', 'https://www.youtube.com/watch?v=dTxWAFvmMCU&list=PLsfLgp1K1xQ53rzo7vo2dKamBu0bj7lkv&index=2', 'Thiết lập môi trường Java Servlet'),
 
 ('241d1328-40d3-4a7d-a171-23b901eeb15f', 'https://www.youtube.com/watch?v=0SJE9dYdpps&list=PL_-VfJajZj0VgpFpEVFzS5Z-lkXtBe-x5', 'Javascript cơ bản'),
