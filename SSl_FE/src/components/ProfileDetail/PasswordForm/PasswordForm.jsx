@@ -3,13 +3,24 @@ import { Field, Formik, ErrorMessage } from "formik";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../store/slices/authSlice";
+import { useEffect, useState } from "react";
 
 
 export default function PasswordForm() {
   const dispatch = useDispatch();
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{8,}$/
-  const { errorMessage } = useSelector((store) => store.auth)
+  const { errorMessage, message } = useSelector((store) => store.auth)
+  const [isShow, setIsShow] =  useState(false)
 
+  useEffect(() => {
+    if(message.length > 0) {
+      setIsShow(true)
+    }   
+  }, [message])
+
+  setTimeout(() => {
+    setTimeout(false)
+  } , 2000)
 
   const changePasswordFormValid = async (values) => {
     const errors = {};
@@ -39,6 +50,9 @@ export default function PasswordForm() {
 
   return (
     <div className="user-container">
+       {
+        isShow ? <div id="snackbar">{message}</div> : '' 
+      }
       <div className="user-detail">
         <Formik
           initialValues={{
@@ -47,9 +61,16 @@ export default function PasswordForm() {
             confirmNewPassword: ""
           }}
           validate={changePasswordFormValid}
-          onSubmit={(values, { resetForm }) => {
+          onSubmit={(values, actions) => {
             handelSubmit(values);
-            resetForm();
+
+            actions.resetForm({
+              values: {
+                oldPassword: "",
+                newPassword: "",
+                confirmNewPassword: ""
+              }
+            });
           }}
         >
           {({handleSubmit, handleChange }) => (

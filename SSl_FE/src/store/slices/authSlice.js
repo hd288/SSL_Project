@@ -14,9 +14,11 @@ const changePassword = createAsyncThunk(
   "auth/changePassword",
   async (changePasswordRequest,  { rejectWithValue }) => {
     try {
+      console.log('changePasswordRequest' , changePasswordRequest);
       const response = await api.auth.changePassword(changePasswordRequest);
       return await response.data;
     } catch (error) {
+      console.log(error.response);
       return rejectWithValue(error.response.data)
     }
   }
@@ -65,6 +67,7 @@ const initialState = {
     refreshToken: userInfo.length > 0 ? decodeValue(userInfo).refreshToken : {},
   },
   errorMessage: "",
+  message: ""
 };
 
 const authSlice = createSlice({
@@ -117,8 +120,7 @@ const authSlice = createSlice({
     // Change password
     builder
       .addCase(changePassword.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.errorMessage = ""
+        state.message = action.payload
     
       })
       .addCase(changePassword.rejected, (state, action) => {

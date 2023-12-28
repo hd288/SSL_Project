@@ -1,0 +1,15 @@
+.btn-view {
+    cursor: pointer;
+    width: 240px;
+    height: 34px;
+    border-radius: 8px;
+    padding-top: 3px;
+    text-align: center;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.btn-view:hover {
+    background-color: #fff;
+    color: #333;
+}

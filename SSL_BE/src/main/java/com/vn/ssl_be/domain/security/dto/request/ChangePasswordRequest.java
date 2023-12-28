@@ -19,8 +19,9 @@ public class ChangePasswordRequest {
     @NotBlank(message = "Please enter your Old Password")
     private String oldPassword;
 
-    @StrongPassword
+
     @NotBlank(message = "Please enter Password")
+    @StrongPassword
     private String newPassword;
 
     @NotBlank(message = "Please enter ConfirmPassword")
