@@ -46,8 +46,7 @@ public class StudentWebController {
 
     @PutMapping("/password")
     public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest){
-        System.out.println(changePasswordRequest);
-                userService.changePassword(changePasswordRequest);
-                return ResponseEntity.ok("Updated password successfully");
+        userService.changePassword(changePasswordRequest);
+        return ResponseEntity.ok("Updated password successfully");
     }
 }
