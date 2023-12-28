@@ -19,6 +19,9 @@ public class StudentCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentCourseId;
 
+    @Column(name = "course_price")
+    private Long coursePrice;
+
     @Column(name = "register_date")
     @Temporal(TemporalType.DATE)
     private Date registerDate;

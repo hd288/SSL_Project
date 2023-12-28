@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
         Boolean checkOldPasswor = passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword());
         if(!checkOldPasswor) {
-            throw UserException.badRequest("Enter Old Password not match!");
+            throw UserException.badRequest("Old Password is not matching!");
         }
         user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
         userRepository.save(user);
