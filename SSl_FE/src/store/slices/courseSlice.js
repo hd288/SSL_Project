@@ -2,6 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "@api";
 
 
+const getCourseDetail = createAsyncThunk(
+  "courses/getCourseDetail", async (courseId) => {
+try {
+  console.log(">>>>>>>>>>>",courseId);
+  const response = await api.courses.getCourseDetail(courseId);
+  console.log(response);
+  return await response.data;
+} catch (err) {
+  console.log(err);
+}
+});
+
 const getCourses = createAsyncThunk(
     "courses/getCourses", async () => {
   try {
@@ -38,7 +50,16 @@ const getCourseById = createAsyncThunk(
 
 const initialState = {
   courses: [],
-  course: {},
+  course: {
+    courseId:"",
+    courseName:"",
+    courseTitle:"",
+    courseDesc:"",
+    duration:"",
+    categoryName:"",
+    lessons:[],
+    imageCourseUrl:"",
+  },
   totalPage: 1,
   pageNumber: 0,
   pageSize: 8,
@@ -64,11 +85,17 @@ const courseSlice = createSlice({
     });
     
     builder.addCase(getCourseById.fulfilled, (state, action) => {
+      console.log("thanhf coong");
       state.course = action.payload
-      console.log(state.course);
+
+    });
+
+    builder.addCase(getCourseDetail.fulfilled, (state, action) => {
+      console.log("thanhf coong");
+      state.course = action.payload
     });
   },
 });
 
-export const courseActions = { ...courseSlice.actions, getCourses, getCoursesByPage, getCourseById };
+export const courseActions = { ...courseSlice.actions, getCourses, getCoursesByPage, getCourseById, getCourseDetail };
 export default courseSlice.reducer;

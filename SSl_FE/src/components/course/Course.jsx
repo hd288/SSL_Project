@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -17,11 +17,18 @@ import {
 import MyModal from "../elements/MyModal";
 import Lesson from "../lesson/Lesson";
 import MyOffCanvas from "../elements/MyOffCanvas";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { courseActions } from "../../store/slices/courseSlice";
 
 export default function Course() {
-  // const [course, setCourse] = useState({})
   const {course}  = useSelector((store) => store.course)
+  const courseId = useParams().courseId;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+          dispatch(courseActions.getCourseDetail(courseId))
+  }, [courseId])
 
   return (
     <div className="pt-5">
@@ -32,67 +39,34 @@ export default function Course() {
               <h4 className="text-center">{course.courseTitle}</h4>
               <p>
                 {course.courseDesc}
-                {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Praesentium id debitis iste perspiciatis obcaecati quo ducimus
-                voluptas corporis assumenda dolores vero aliquid ad dolor,
-                doloremque voluptate quia dolore est ab. Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Praesentium id debitis iste
-                perspiciatis obcaecati quo ducimus voluptas corporis assumenda
-                dolores vero aliquid ad dolor, doloremque voluptate quia dolore
-                est ab. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Praesentium id debitis iste perspiciatis obcaecati quo ducimus
-                voluptas corporis assumenda dolores vero aliquid ad dolor,
-                doloremque voluptate quia dolore est ab. Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Praesentium id debitis iste
-                perspiciatis obcaecati quo ducimus voluptas corporis assumenda
-                dolores vero aliquid ad dolor, doloremque voluptate quia dolore
-                est ab. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Praesentium id debitis iste perspiciatis obcaecati quo ducimus
-                voluptas corporis assumenda dolores vero aliquid ad dolor,
-                doloremque voluptate quia dolore est ab. */}
               </p>
             </div>
 
             <div>
               <h5 className="m-2">This Course's Details</h5>
               <p>
-                20 {/* thay đổi số ở đây thôi  */}
                 <span className="fw-lighter">
-                  Lessons - Approximately
-                </span> {course.duration}
-                <span className="fw-lighter">hours</span>
-              </p>
+                  {course.lessons.length}  Lessons - Approximately
+                </span> 
+                <span className="fw-lighter"> {course.duration} hours</span>
+              </p><br />
               <Accordion defaultActiveKey="1" alwaysOpen flush className="w-75">
                 {/* item 1 */}
-                <Accordion.Item eventKey="1">
-                  <Accordion.Header>
-                    1. Lorem ipsum dolor sit amet.
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <ListGroup variant="flush">
-                      <ListGroupItem>Cras justo odio</ListGroupItem>
-                      <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                      <ListGroupItem>Morbi leo risus</ListGroupItem>
-                      <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                    </ListGroup>
-                  </Accordion.Body>
-                </Accordion.Item>
-                {/* item 1 end */}
-                {/* dùng map để render tất cả cái item thì chỉ cần nhớ add eventKey là được (eventKey = `${index}` là oke) */}
-
-                <Accordion.Item eventKey="2">
-                  <Accordion.Header>
-                    2. Lorem ipsum dolor sit amet.
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <ListGroup variant="flush">
-                      <ListGroupItem>Cras justo odio</ListGroupItem>
-                      <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                      <ListGroupItem>Morbi leo risus</ListGroupItem>
-                      <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                    </ListGroup>
-                  </Accordion.Body>
-                </Accordion.Item>
+                {course.lessons.map((lesson, index) => (
+                  <Accordion.Item eventKey={index} key={lesson.id}>
+                   <Accordion.Header>
+                      {lesson.lessonTitle}
+                   </Accordion.Header>
+                   <Accordion.Body>
+                     <ListGroup variant="flush">
+                       <ListGroupItem>Cras justo odio</ListGroupItem>
+                       <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                       <ListGroupItem>Morbi leo risus</ListGroupItem>
+                       <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
+                     </ListGroup>
+                   </Accordion.Body>
+                 </Accordion.Item>
+                ))}
               </Accordion>
             </div>
 
@@ -161,7 +135,7 @@ export default function Course() {
               <BsRocketTakeoff /> Level: Intermediate
             </ListGroupItem>
             <ListGroupItem className="d-flex align-items-center gap-2">
-              <BsListTask /> Total Lessons: 10
+              <BsListTask /> Total Lessons: {course.lessons.length}
             </ListGroupItem>
             <ListGroupItem className="d-flex align-items-center gap-2">
               <BsClockHistory />

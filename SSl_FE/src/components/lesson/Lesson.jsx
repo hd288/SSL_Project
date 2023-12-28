@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import LessonDetails from './LessonDetails'
+import { useSelector } from "react-redux";
 
 export default function Lesson() {
   const [playTime, setPlayTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const {course}  = useSelector((store) => store.course)
+
+  const [lessonList, setLessonList] = useState([])
+  const [lesson, setLesson] = useState({})
+  const [selectedLesson, setSelectedLesson] = useState(1);  
+
+  useEffect(() => {
+    setLessonList(course.lessons),
+    setLesson(course.lessons[0])
+    setSelectedLesson(course.lessons[0].lessonId)
+  }, [])
 
   const handleProgress = (state) => {
     if (isPlaying) {
@@ -45,14 +57,8 @@ export default function Lesson() {
   }, [isPlaying]);
 
   
-  const lessonArray = [
-    { id: 1, title: "How to HTML CSS", link: "https://www.youtube.com/watch?v=R6plN3FvzFY&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz" },
-    { id: 2, title: "Javascript in a nutshell", link: "https://www.youtube.com/watch?v=0SJE9dYdpps&list=PL_-VfJajZj0VgpFpEVFzS5Z-lkXtBe-x5git" },
-  ];
-  const [selectedLesson, setSelectedLesson] = useState(lessonArray[0].id);
-
-  const handleLessonClick = (lesson) => {
-    setSelectedLesson(selectedLesson === lesson.id ? null : lesson.id);
+  const handleLessonClick = (lessonId) => {
+    setLesson(lessonList.find(lesson => lesson.lessonId == lessonId));
   };
   
   return (
@@ -60,21 +66,21 @@ export default function Lesson() {
       <Row>
         <Col lg={9}>
           {selectedLesson && (
-            <LessonDetails lesson={lessonArray.find((lesson) => lesson.id === selectedLesson)} />
+            <LessonDetails lesson={lesson}/>
           )}
         </Col>
         <Col lg={3}>
           <Accordion flush>
-            {lessonArray.map((lesson) => (
+            {lessonList.map((lesson, index) => (
               <Accordion.Item
-                key={lesson.id}
-                eventKey={lesson.id}
-                className={selectedLesson === lesson.id ? 'selected' : ''}
+                key={lesson.lessonId}
+                eventKey={lesson.lessonId}
+                className={selectedLesson == lesson.lessonId ? 'selected' : ''}
               >
-                <Accordion.Header>{lesson.title}</Accordion.Header>
+                <Accordion.Header>{lesson.lessonTitle}</Accordion.Header>
                 <Accordion.Body>
-                  <Button variant="link" onClick={() => handleLessonClick(lesson)}>
-                    Part {lesson.id}
+                  <Button variant="link" onClick={() => handleLessonClick(lesson.lessonId)}>
+                    Part {index + 1}
                   </Button>
                   {/* {selectedLesson === lesson.id && <LessonDetails lesson={lesson} />} */}
                 </Accordion.Body>

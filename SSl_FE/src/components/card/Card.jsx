@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import "./card.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import courses from "../../api/modules/courses.";
 import { useDispatch } from "react-redux";
 import { courseActions } from "@store/courseSlice.js"
 
 export default function Card(props) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [bgImg] = useState([
@@ -34,7 +35,13 @@ export default function Card(props) {
   };
 
   const handleGetCourse = (courseId) => {
+  
     dispatch(courseActions.getCourseById(courseId))
+  }
+
+  const handleGetCourseDetail = (courseId) => {
+    // dispatch(courseActions.getCourseDetail(courseId))
+    navigate("/course/"+courseId)
   }
 
   return (
@@ -54,14 +61,14 @@ export default function Card(props) {
           {props.courseTitle} 
         </div>
         <div className=" position-absolute w-100 h-100  align-items-center justify-content-center">
-          <Link
-            to="/course"
+          <Button
              className="btn btn-light w-50 "
-             rel="noopener noreferrer"
-             onClick={() => handleGetCourse(props.courseId)}
+             onClick={(e) =>{
+              e.preventDefault()
+              handleGetCourseDetail(props.courseId)}}
           >  
             See more 
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

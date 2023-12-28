@@ -10,6 +10,7 @@ import Careers from "../pages/Careers";
 import CoursePage from "../pages/CoursePage";
 import Blogs from "../pages/Blogs";
 import Lesson from "../components/lesson/Lesson";
+import UserDetail from "../components/ProfileDetail/UserDetail/UserDetail";
 
 export default function MainRoutes() {
   return (
@@ -17,9 +18,11 @@ export default function MainRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/careers" element={<Careers />}/>
       <Route path="/blogs" element={<Blogs />}/>
-      <Route path="/user" element={<UserPage />}/>
-      <Route path="/careers" element={<Careers />}/>
-      <Route path="/course" element={<CoursePage />}/>
+      <Route path="/user" element={<UserPage />}>
+        <Route path="/user/profile" element={<UserDetail />}/>
+        <Route path="/user/password" element={<PasswordForm />}/>
+      </Route>
+      <Route path="/course/:courseId" element={<CoursePage />}/>
       <Route path="/lesson" element={<Lesson />}/>
     </Routes>
   );

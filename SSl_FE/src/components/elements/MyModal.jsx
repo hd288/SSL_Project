@@ -14,7 +14,6 @@ export default function MyModal({
   const { isLogin, isRegister } = useSelector(store => store.auth)
   const [show, setShow] = useState(false);
 
-  console.log(isRegister);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import images from "@assets/main-carousel-imgs/imgs";
+import "./style.css"
 
 export default function SliderChild(props) {
   const [bgImg] = useState([
@@ -45,7 +46,7 @@ export default function SliderChild(props) {
         >
           <h4 className="pb-2">{props.title}</h4>
           <p>{props.content}</p>
-          <Button variant="outline-light w-50">See more</Button>
+          <a href={props.link} className="btn-view" variant="outline-light w-50" target="_blank">See more</a>
         </Col>
         <Col
           lg={5}

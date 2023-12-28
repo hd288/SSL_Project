@@ -9,18 +9,6 @@ import {
   checkCookie,
 } from "@js";
 
-// const putStudentRequest = async (studentRequest) => {
-//     console.log(studentRequest);
-//     await axios({
-//         method: 'put',
-//         url: import.meta.env.VITE_API_URL + '/api/v1/users/profile',
-//         data: studentRequest,
-//         headers : {
-//             'Authorization': `Bearer ${getCookie('ut') || ''}`,
-//             'Accept': 'multipart/form-data'
-//         }
-//     })
-// }
 
 export default {
   getStudentProfile: () => instance.get("/api/v1/users/profile"),

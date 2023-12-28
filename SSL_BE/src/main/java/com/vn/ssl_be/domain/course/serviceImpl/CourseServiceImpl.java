@@ -1,10 +1,13 @@
 package com.vn.ssl_be.domain.course.serviceImpl;
 
+import com.vn.ssl_be.common.exception.DomainException;
 import com.vn.ssl_be.common.util.PageResponseDto;
 import com.vn.ssl_be.common.util.UploadService;
 import com.vn.ssl_be.domain.course.dto.request.CourseRequest;
+import com.vn.ssl_be.domain.course.dto.response.CourseDetailResponseV1;
 import com.vn.ssl_be.domain.course.dto.response.CourseResponse;
-import com.vn.ssl_be.domain.course.dto.response.PageResponseDtoV2;
+import com.vn.ssl_be.domain.course.dto.response.LessonResponse;
+import com.vn.ssl_be.domain.course.dto.response.PageResponseDtoV1;
 import com.vn.ssl_be.domain.course.exception.CourseException;
 import com.vn.ssl_be.domain.course.model.Category;
 import com.vn.ssl_be.domain.course.model.Course;
@@ -16,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -48,14 +50,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public PageResponseDtoV2<CourseResponse> getCourses(Integer page) {
+    public PageResponseDtoV1<CourseResponse> getCourses(Integer page) {
         List<CourseResponse> data = new ArrayList<>();
         List<CourseResponse> courseResponses = courseRepository.findAll().stream().map(course -> {
                 CourseResponse courseResponse = modelMapper.map(course, CourseResponse.class);
                     return courseResponse;
         }).toList();
-
-
 
         int pageSize = 8;
         int end = 0;
@@ -66,11 +66,10 @@ public class CourseServiceImpl implements CourseService {
             pageNumber = page;
         }else  {
             end =  pageSize;
-
         }
 
         int start =  end - pageSize;
-        int totalPage = (courseResponses.size() / 8) + 1;
+        int totalPage = (courseResponses.size() / pageSize) + 1;
 
         if(end > courseResponses.size()) {
             end = courseResponses.size();
@@ -80,7 +79,7 @@ public class CourseServiceImpl implements CourseService {
             data.add(courseResponses.get(i));
         }
 
-        PageResponseDtoV2<CourseResponse> pageResponseDto =  new PageResponseDtoV2<>();
+        PageResponseDtoV1<CourseResponse> pageResponseDto =  new PageResponseDtoV1<>();
         pageResponseDto.setTotalPage(totalPage);
         pageResponseDto.setData(data);
         pageResponseDto.setSize(8);
@@ -89,6 +88,31 @@ public class CourseServiceImpl implements CourseService {
 
         return pageResponseDto;
     }
+
+    @Override
+    public CourseDetailResponseV1 getCourseDetail(String courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> DomainException.notFound(courseId));
+
+        return CourseDetailResponseV1.builder()
+                .courseId(course.getCourseId())
+                .courseName(course.getCourseName())
+                .courseTitle(course.getCourseTitle())
+                .courseDesc(course.getCourseDesc())
+                .duration(course.getDuration())
+                .imageCourseUrl(course.getImageCourseUrl())
+                .lessons(course.getLessons().stream().map(lesson -> {
+                            return LessonResponse.builder()
+                                    .lessonId(lesson.getLessonId())
+                                    .lessonTitle(lesson.getLessonTitle())
+                                    .contentLink(lesson.getContentLink())
+                                    .build();
+                        }).toList()
+                )
+                .build();
+    }
+
+
 
     @Override
     public Course findById(String id) throws CourseException {
