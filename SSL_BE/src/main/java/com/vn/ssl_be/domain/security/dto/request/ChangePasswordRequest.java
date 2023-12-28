@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @PasswordMatching(
         password = "newPassword",
         confirmPassword = "confirmNewPassword",
-        message = "New Password and Confirm New Password must be matched!"
+        message = "New Password and Confirm New Password are not matching!"
 )
 public class ChangePasswordRequest {
     @NotBlank(message = "Please enter your Old Password")
